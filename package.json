@@ -118,6 +118,7 @@
     "extends": "eslint-config-strict-mode",
     "rules": {
       "eqeqeq": "off",
+      "filenames/no-index": "off",
       "fp/no-loops": "off",
       "fp/no-mutating-assign": "off",
       "fp/no-mutation": "off",
@@ -137,7 +138,6 @@
       "max-statements": "off",
       "no-await-in-loop": "off",
       "no-loops/no-loops": "off",
-      "filenames/no-index": "off",
       "no-magic-numbers": "off",
       "no-undef": "off",
       "no-undefined": "off",
