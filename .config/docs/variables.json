@@ -10,6 +10,7 @@
   "autodoc_todo_description": "",
   "autodoc_variables_description": "",
   "badge_style": "for-the-badge",
+  "build_coverage_regex": "Lines\\s*:\\s*(\\d+.?\\d*)%",
   "commit_help_url": "https://megabyte.space/docs/contributing/commit-guidelines",
   "company": "Megabyte LLC",
   "copyright": "2020-2021",
@@ -19,7 +20,7 @@
     "header_description_pre": "<i></i>",
     "header_title_post": "<i></i>",
     "header_title_pre": "<i></i>",
-    "link": "https://megabyte.space/docs/common/go"
+    "link": "https://megabyte.space/docs/common/npm"
   },
   "email": {
     "help": "help@megabyte.space"
