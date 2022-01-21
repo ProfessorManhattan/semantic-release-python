@@ -8,7 +8,7 @@ readme = "README.md"
 homepage = "https://megabyte.space"
 documentation = "https://megabyte.space/docs/npm/plugins"
 keywords = ["mblabs", "megabytelabs", "plugin", "poetry", "professormanhattan", "publish", "pypi", "pyproject", "python", "python package", "python3", "semantic", "semantic-release", "setupcfg", "washingtondc"]
-include = ["CHANGELOG.md", "LICENSE"]
+include = ["docs/CHANGELOG.md", "LICENSE"]
 classifiers = [
   "Development Status :: 4 - Beta",
   "Development Status :: 5 - Production/Stable",

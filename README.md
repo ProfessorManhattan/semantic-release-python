@@ -1,12 +1,13 @@
 <!-- ⚠️ This README has been generated from the file(s) ".config/docs/blueprint-readme-plugin.md" ⚠️--><div align="center">
   <center>
-    <a href="https://gitlab.com/megabyte-labs/npm/semantic-release-python" title="semantic-release-python GitLab page" target="_blank">
-      <img width="100" height="100" alt="semantic-release-python logo" src="https://gitlab.com/megabyte-labs/npm/semantic-release-python/-/raw/master/logo.png" />
+    <a href="https://github.com/ProfessorManhattan/semantic-release-python">
+      <img width="148" height="148" alt="Semantic Release Python logo" src="https://gitlab.com/megabyte-labs/npm/plugin/semantic-release-python/-/raw/master/logo.png" />
     </a>
   </center>
 </div>
 <div align="center">
-  <center><h1 align="center">NPM Package: project_title</h1></center>
+  <center><h1 align="center">Plugin: Semantic Release Python<i></i></h1></center>
+  <center><h4 style="color: #18c3d1;">A plugin created by <a href="https://megabyte.space" target="_blank">Megabyte Labs</a></h4><i></i></center>
 </div>
 
 <div align="center">
@@ -57,35 +58,114 @@
 
 > </br><h3 align="center">**A semantic-release plugin that allows you to upload to PyPi (supports Poetry projects too!)**</h3></br>
 
-<!--TERMINALIZER![terminalizer_title](https://gitlab.com/megabyte-labs/npm/role_name/-/raw/master/.demo.gif)TERMINALIZER-->
-
 <a href="#table-of-contents" style="width:100%"><img style="width:100%" src="https://gitlab.com/megabyte-labs/assets/-/raw/master/png/aqua-divider.png" /></a>
 
 ## Table of Contents
 
+- [Overview](#overview)
 - [Requirements](#requirements)
+- [Lifecycle Hooks](#lifecycle-hooks)
+- [Environment Variables](#environment-variables)
+- [Options](#options)
+- [Examples](#examples)
+  - [Basic Example Using `setup.cfg`](#basic-example-using-setupcfg)
+  - [Example Using Poetry](#example-using-poetry)
 - [Contributing](#contributing)
 - [License](#license)
+
+<a href="#overview" style="width:100%"><img style="width:100%" src="https://gitlab.com/megabyte-labs/assets/-/raw/master/png/aqua-divider.png" /></a>
+
+## Overview
+
+**Semantic Release Python** is a [Semantic Release]() plugin that brings support for managing the publication of PyPi packages. It supports traditional Python projects with a `setup.cfg` file and also **supports Poetry projects**. Note that in order for this plugin to work, you need to have Python 3 installed on your system. After installing the plugin, a few supporting Python packages will automatically be installed.
 
 <a href="#requirements" style="width:100%"><img style="width:100%" src="https://gitlab.com/megabyte-labs/assets/-/raw/master/png/aqua-divider.png" /></a>
 
 ## Requirements
 
-- **[Node.js >9](repository.project.node)**
+- **[Node.js >14.18.0](repository.project.node)**
+- **[Python >3.10.0](repository.project.python)**
 
-{{ load:.blueprint.md }}
+<a href="#lifecycle-hooks" style="width:100%"><img style="width:100%" src="https://gitlab.com/megabyte-labs/assets/-/raw/master/png/aqua-divider.png" /></a>
+
+## Lifecycle Hooks
+
+| Step               | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `verifyConditions` | <ul><li>Verify the environment variable `PYPI_TOKEN`</li><li>Verify `PYPI_TOKEN` is authorized to publish on the specified repository</li><li>If the project is not a [Poetry](https://python-poetry.org/) project (i.e. it has a `setup.cfg`), then verify that `version` is not set inside `setup.py` (version will be set in `setup.cfg`)</li><li>If it is not Poetry project, check if the packages `setuptools`, `wheel` and `twine` are installed</li><li>If it is a Poetry project (i.e. contains `pyproject.toml` instead of `setup.cfg`), ensure Poetry is installed</li></ul> |
+| `prepare`          | Update the version in `setup.cfg` and create the distribution packages if it is not a Poetry project. But, if it is a Poetry project, then just update the version.                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `publish`          | Build the project if it is a Poetry project and then publish the Python package to the `PYPI_REPO_URL`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+
+<a href="#environment-variables" style="width:100%"><img style="width:100%" src="https://gitlab.com/megabyte-labs/assets/-/raw/master/png/aqua-divider.png" /></a>
+
+## Environment Variables
+
+| Variable        | Description                                                                                              | Required | Default                           |
+| --------------- | -------------------------------------------------------------------------------------------------------- | -------- | --------------------------------- |
+| `PYPI_TOKEN`    | [API token](https://test.pypi.org/help/#apitoken) for PyPi (or password if `PYPI_USERNAME` is specified) | true     |
+| `PYPI_USERNAME` | PyPi username (only required if you are using a password instead of an API token)                        | false    | `__token__`                       |
+| `PYPI_REPO_URL` | URL of remote Python package repository                                                                  | false    | `https://upload.pypi.org/legacy/` |
+
+<a href="#options" style="width:100%"><img style="width:100%" src="https://gitlab.com/megabyte-labs/assets/-/raw/master/png/aqua-divider.png" /></a>
+
+## Options
+
+| Option        | Type    | Default                           | Description                                                                                                                                                                                    |
+| ------------- | ------- | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `setupPy`     | string  | `./setup.py`                      | Location of `setup.py` (or any file in the root of the project for a Poetry project)                                                                                                           |
+| `distDir`     | string  | `dist`                            | Directory to put the source distribution archive(s) in, relative to the directory of `setup.py` (this variable is not used in Poetry projects)                                                 |
+| `repoUrl`     | string  | `https://upload.pypi.org/legacy/` | The repository to upload the package to                                                                                                                                                        |
+| `pypiPublish` | boolean | `true`                            | Whether to publish the Python package to the PyPi registry. If false, the package version will still be updated.                                                                               |
+| `gpgSign`     | boolean | `false`                           | Whether to sign the package using GPG. A valid PGP key must already be installed and configured on the host. Our implementation for Poetry projects currently do not support this feature.     |
+| `gpgIdentity` | string  | `null`                            | When `gpgSign` is true, set the GPG identify to use when signing files. Leave empty to use the default identity. Our implementation for Poetry projects currently do not support this feature. |
+
+<a href="#examples" style="width:100%"><img style="width:100%" src="https://gitlab.com/megabyte-labs/assets/-/raw/master/png/aqua-divider.png" /></a>
+
+## Examples
+
+This plugin can be configured in the [**semantic-release** configuration file](https://github.com/semantic-release/semantic-release/blob/master/docs/usage/configuration.md#configuration). For a full example of a configuration used for multiple project types, check out the [shareable configuration we use for all our of projects](https://github.com/ProfessorManhattan/release-config).
+
+### Basic Example Using `setup.cfg`
+
+```json
+{
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "semantic-release-python"
+  ]
+}
+```
+
+### Example Using Poetry
+
+```json
+{
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    [
+      "semantic-release-python",
+      {
+        "setupPy": "./pyproject.toml"
+      }
+    ]
+  ]
+}
+```
 
 <a href="#contributing" style="width:100%"><img style="width:100%" src="https://gitlab.com/megabyte-labs/assets/-/raw/master/png/aqua-divider.png" /></a>
 
 ## Contributing
 
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://gitlab.com/megabyte-labs/npm/semantic-release-python/-/issues). If you would like to contribute, please take a look at the [contributing guide](https://gitlab.com/megabyte-labs/npm/semantic-release-python/-/blob/master/CONTRIBUTING.md).
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/ProfessorManhattan/semantic-release-python/issues). If you would like to contribute, please take a look at the [contributing guide](https://github.com/ProfessorManhattan/semantic-release-python/blob/master/CONTRIBUTING.md).
 
 <details>
-<summary>Sponsorship</summary>
+<summary><b>Sponsorship</b></summary>
 <br/>
 <blockquote>
 <br/>
+Dear Awesome Person,<br/><br/>
 I create open source projects out of love. Although I have a job, shelter, and as much fast food as I can handle, it would still be pretty cool to be appreciated by the community for something I have spent a lot of time and money on. Please consider sponsoring me! Who knows? Maybe I will be able to quit my job and publish open source full time.
 <br/><br/>Sincerely,<br/><br/>
 
@@ -93,8 +173,14 @@ I create open source projects out of love. Although I have a job, shelter, and a
 
 </blockquote>
 
-<a href="ProfessorManhattan">
-  <img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160">
+<a title="Support us on Open Collective" href="https://opencollective.com/megabytelabs" target="_blank">
+  <img alt="Open Collective sponsors" src="https://img.shields.io/opencollective/sponsors/megabytelabs?logo=opencollective&label=OpenCollective&logoColor=white&style=for-the-badge" />
+</a>
+<a title="Support us on GitHub" href="https://github.com/ProfessorManhattan" target="_blank">
+  <img alt="GitHub sponsors" src="https://img.shields.io/github/sponsors/ProfessorManhattan?label=GitHub%20sponsors&logo=github&style=for-the-badge" />
+</a>
+<a href="https://www.patreon.com/ProfessorManhattan" title="Support us on Patreon" target="_blank">
+  <img alt="Patreon" src="https://img.shields.io/badge/Patreon-Support-052d49?logo=patreon&logoColor=white&style=for-the-badge" />
 </a>
 
 </details>
@@ -103,4 +189,4 @@ I create open source projects out of love. Although I have a job, shelter, and a
 
 ## License
 
-Copyright © 2020-2021 [company_name](website.homepage). This project is [MIT](https://gitlab.com/megabyte-labs/npm/semantic-release-python/-/raw/master/LICENSE) licensed.
+Copyright © 2020-2021 [Megabyte LLC](https://megabyte.space). This project is [MIT](https://gitlab.com/megabyte-labs/npm/plugin/semantic-release-python/-/blob/master/LICENSE) licensed.

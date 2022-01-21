@@ -35,7 +35,7 @@ devDependencies:
   esbuild: 0.12.29
   esbuild-node-externals: 1.4.1_esbuild@0.12.29
   eslint: 8.7.0
-  eslint-config-strict-mode: 1.0.7_jest@26.6.3
+  eslint-config-strict-mode: 1.0.9_jest@26.6.3
   eslint-plugin-jest: 25.7.0_eslint@8.7.0+jest@26.6.3
   fs-extra: 10.0.0
   jest: 26.6.3
@@ -6065,8 +6065,8 @@ packages:
       eslint: 8.7.0
     dev: true
 
-  /eslint-config-strict-mode/1.0.7_jest@26.6.3:
-    resolution: {integrity: sha512-cO9okGXK1SXyPv1BGgqkCnDBiXUyMNoA9haJZudp7aHEsaDTS3JTDVFG1LDmQBkYwN6ofUK5tu4SS2gqnJt95g==}
+  /eslint-config-strict-mode/1.0.9_jest@26.6.3:
+    resolution: {integrity: sha512-fx+Cy0U/Nm3+e/bYGpL7GFCKnfVi/ji/yX//KTa73jJaY4amoBSlHv+fCtsdeIn2/8PC/B8y21ieZtdILCKM/Q==}
     engines: {node: '>=14.18.0'}
     dependencies:
       '@typescript-eslint/eslint-plugin': 5.10.0_dac6134a22fe1289d58145b0b92ae060
