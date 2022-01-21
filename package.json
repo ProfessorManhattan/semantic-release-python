@@ -15,9 +15,10 @@
     "url": "https://gitlab.com/megabyte-labs/npm/plugin/semantic-release-python/-/issues"
   },
   "type": "module",
-  "main": "dist/main.js",
+  "main": "index.js",
   "files": [
-    "dist"
+    "docs/CHANGELOG.md",
+    "src"
   ],
   "scripts": {
     "help": "task --list",
@@ -82,15 +83,21 @@
     "customPackageName": "semantic-release-python",
     "description": "A semantic-release plugin that allows you to upload to PyPi (supports Poetry projects too!)",
     "github_id": "R_kgDOGtuKiw",
-    "jsonOverrides": {
-      "package.json": {
-        "files": ["docs/CHANGELOG.md", "LICENSE", "README.md", "src", "index.js"],
-        "main": "index.js"
-      }
-    },
     "gitlab_group_id": "14035198",
     "gitlab_project_id": "33027011",
     "group": "npm",
+    "jsonOverrides": {
+      "package.json": {
+        "files": [
+          "docs/CHANGELOG.md",
+          "LICENSE",
+          "README.md",
+          "src",
+          "index.js"
+        ],
+        "main": "index.js"
+      }
+    },
     "name": "Semantic Release Python",
     "overview": "**Semantic Release Python** is a [Semantic Release]() plugin that brings support for managing the publication of PyPi packages. It supports traditional Python projects with a `setup.cfg` file and also **supports Poetry projects**. Note that in order for this plugin to work, you need to have Python 3 installed on your system. After installing the plugin, a few supporting Python packages will automatically be installed.",
     "repository": {
@@ -130,6 +137,7 @@
       "max-statements": "off",
       "no-await-in-loop": "off",
       "no-loops/no-loops": "off",
+      "filenames/no-index": "off",
       "no-magic-numbers": "off",
       "no-undef": "off",
       "no-undefined": "off",
