@@ -6,6 +6,7 @@
   "author": "Andreas Bichinger",
   "license": "MIT",
   "private": false,
+  "type": "module",
   "devDependencies": {
     "@semantic-release/git": "^9.0.0",
     "eslint": "^8.7.0",
