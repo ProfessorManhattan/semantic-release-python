@@ -1,8 +1,8 @@
 module.exports = {
-    setupPy: './setup.py',
-    distDir: 'dist',
-    repoUrl: 'https://upload.pypi.org/legacy/',
-    pypiPublish: true,
-    gpgSign: false,
-    gpgIdentity: null
+  distDir: 'dist',
+  gpgIdentity: null,
+  gpgSign: false,
+  pypiPublish: true,
+  repoUrl: 'https://upload.pypi.org/legacy/',
+  setupPy: './setup.py'
 }

@@ -9,63 +9,71 @@ from setuptools import setup
 setup()
 `
 
-async function genPackage(setupPy, name, content=defaultContent){
+/**
+ * @param setupPy
+ * @param name
+ * @param content
+ */
+async function genPackage(setupPy, name, content = defaultContent) {
+  const dir = path.dirname(setupPy)
+  fs.mkdirSync(dir, { recursive: true })
+  fs.writeFileSync(setupPy, content)
 
-    let dir = path.dirname(setupPy)
-    fs.mkdirSync(dir, {recursive: true})
-    fs.writeFileSync(setupPy, content)
+  const options = [['name', name]]
 
-    let options = [
-        ['name', name],
-    ]
-
-    for(let [option, value] of options){
-        await setopt(setupPy, 'metadata', option, value)
-    }
-}
-
-async function hasPackage(repoUrl, packageName, version){
-    let url = `${repoUrl}/pypi/${packageName}/${version}/json`
-    try {
-        await got.get(url)
-        return true
-    }
-    catch(err) {
-        return false
-    }
+  for (const [option, value] of options) {
+    await setopt(setupPy, 'metadata', option, value)
+  }
 }
 
 /**
- * 
- * @param {string} setupPy path of setup.py
- * @returns {{config: object, context: object, packageName: string}} 
+ * @param repoUrl
+ * @param packageName
+ * @param version
  */
- async function genPluginArgs(setupPy, name='integration'){
-    let packageName = `semantic-release-pypi-${name}-test-`+uuidv4()
+async function hasPackage(repoUrl, packageName, version) {
+  const url = `${repoUrl}/pypi/${packageName}/${version}/json`
+  try {
+    await got.get(url)
 
-    let config = {
-        setupPy: setupPy,
-        repoUrl: 'https://test.pypi.org/legacy/'
-    }
+    return true
+  } catch {
+    return false
+  }
+}
 
-    let context = {
-        nextRelease: {
-            version: '1.2.3'
-        },
-        logger: {
-            log: jest.fn()
-        },
-        stdout: process.stdout,
-        stderr: process.stderr,
-    }
+/**
+ *
+ * @param {string} setupPy path of setup.py
+ * @param name
+ * @returns {{config: object, context: object, packageName: string}}
+ */
+async function genPluginArguments(setupPy, name = 'integration') {
+  const packageName = `semantic-release-pypi-${name}-test-${uuidv4()}`
 
-    await genPackage(setupPy, packageName)
+  const config = {
+    repoUrl: 'https://test.pypi.org/legacy/',
+    setupPy
+  }
 
-    return {config, context, packageName}
+  const context = {
+    logger: {
+      log: jest.fn()
+    },
+    nextRelease: {
+      version: '1.2.3'
+    },
+    stderr: process.stderr,
+    stdout: process.stdout
+  }
+
+  await genPackage(setupPy, packageName)
+
+  return { config, context, packageName }
 }
 
 module.exports = {
-    genPackage,
-    hasPackage,
-    genPluginArgs
+  genPackage,
+  genPluginArgs: genPluginArguments,
+  hasPackage
 }

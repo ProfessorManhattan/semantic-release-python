@@ -1,40 +1,43 @@
 {
+  "private": false,
+  "name": "semantic-release-python",
+  "version": "2.5.0",
+  "description": "A semantic-release plugin that allows you to upload to PyPi (supports Poetry projects too!)",
+  "license": "MIT",
   "author": "Brian Zalewski <brian@megabyte.space> (https://megabyte.space)",
-  "blueprint": {
-    "customPackageName": "semantic-release-python",
-    "description": "A semantic-release plugin that allows you to upload to PyPi (supports Poetry projects too!)",
-    "group": "npm",
-    "name": "Semantic Release Python",
-    "overview": "**Semantic Release Python** is a [Semantic Release]() plugin that brings support for managing the publication of PyPi packages. It supports traditional Python projects with a `setup.cfg` file and also **supports Poetry projects**. Note that in order for this plugin to work, you need to have Python 3 installed on your system. After installing the plugin, a few supporting Python packages will automatically be installed.",
-    "repository": {
-      "github": "https://github.com/ProfessorManhattan/semantic-release-python",
-      "gitlab": "https://gitlab.com/megabyte-labs/npm/plugin/semantic-release-python"
-    },
-    "slug": "semantic-release-python",
-    "subgroup": "plugin",
-    "title": "Semantic Release Python"
+  "homepage": "https://megabyte.space",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ProfessorManhattan/semantic-release-python.git"
   },
   "bugs": {
     "email": "help@megabyte.space",
     "url": "https://gitlab.com/megabyte-labs/npm/plugin/semantic-release-python/-/issues"
   },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ],
-    "helpUrl": "https://megabyte.space/docs/contributing/commits"
+  "type": "module",
+  "main": "src/main.js",
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "help": "task --list",
+    "prepare": "task common:husky",
+    "repair": "bash <(curl -sS https://install.doctor/repair)",
+    "start": "bash .config/start.sh",
+    "test": "task install:python:venv && . .venv/bin/activate && jest"
   },
   "config": {
     "commitizen": {
       "path": "node_modules/cz-emoji-conventional"
     }
   },
+  "typings": "dist/main.d.ts",
   "dependencies": {
     "execa": "^4.1.0",
     "form-data": "^3.0.0",
     "got": "^11.8.0"
   },
-  "description": "A semantic-release plugin that allows you to upload to PyPi (supports Poetry projects too!)",
+  "optionalDependencies": {},
   "devDependencies": {
     "@megabytelabs/jest-preset": "^1.0.0",
     "@semantic-release/git": "^9.0.0",
@@ -51,45 +54,6 @@
     "jest": "^26.6.3",
     "sleekfast": "^0.0.1",
     "uuid": "^8.3.1"
-  },
-  "engines": {
-    "node": ">=14.18.0"
-  },
-  "eslintConfig": {
-    "extends": "eslint-config-strict-mode"
-  },
-  "files": [
-    "dist",
-    "CHANGELOG.md",
-    "LICENSE",
-    "README.md"
-  ],
-  "funding": [
-    {
-      "type": "opencollective",
-      "url": "https://opencollective.com/megabytelabs"
-    },
-    {
-      "type": "patreon",
-      "url": "https://www.patreon.com/ProfessorManhattan"
-    }
-  ],
-  "homepage": "https://megabyte.space",
-  "jest": {
-    "preset": "@megabytelabs/jest-preset",
-    "reporters": [
-      "default",
-      [
-        "jest-html-reporters",
-        {
-          "filename": "index.html",
-          "logoImgPath": "./.config/assets/logo-jest-report.png",
-          "openReport": true,
-          "pageTitle": "Code Coverage Report",
-          "publicPath": "./coverage"
-        }
-      ]
-    ]
   },
   "keywords": [
     "mblabs",
@@ -108,7 +72,96 @@
     "setupcfg",
     "washingtondc"
   ],
-  "license": "MIT",
+  "engines": {
+    "node": ">=14.18.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "blueprint": {
+    "customPackageName": "semantic-release-python",
+    "description": "A semantic-release plugin that allows you to upload to PyPi (supports Poetry projects too!)",
+    "group": "npm",
+    "name": "Semantic Release Python",
+    "overview": "**Semantic Release Python** is a [Semantic Release]() plugin that brings support for managing the publication of PyPi packages. It supports traditional Python projects with a `setup.cfg` file and also **supports Poetry projects**. Note that in order for this plugin to work, you need to have Python 3 installed on your system. After installing the plugin, a few supporting Python packages will automatically be installed.",
+    "repository": {
+      "github": "https://github.com/ProfessorManhattan/semantic-release-python",
+      "gitlab": "https://gitlab.com/megabyte-labs/npm/plugin/semantic-release-python"
+    },
+    "slug": "semantic-release-python",
+    "subgroup": "plugin",
+    "title": "Semantic Release Python",
+    "github_id": "R_kgDOGtuKiw",
+    "gitlab_project_id": "33027011",
+    "gitlab_group_id": "14035198"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ],
+    "helpUrl": "https://megabyte.space/docs/contributing/commits"
+  },
+  "eslintConfig": {
+    "extends": "eslint-config-strict-mode",
+    "rules": {
+      "jsdoc/require-returns": "off",
+      "functional/immutable-data": "off",
+      "functional/no-try-statement": "off",
+      "functional/no-throw-statement": "off",
+      "jsdoc/require-param-description": "off",
+      "jsdoc/require-param-type": "off",
+      "no-undef": "off",
+      "no-useless-concat": "off",
+      "no-undefined": "off",
+      "unicorn/no-null": "off",
+      "unicorn/prefer-module": "off",
+      "no-await-in-loop": "off",
+      "fp/no-loops": "off",
+      "unicorn/prevent-abbreviations": "off",
+      "import/no-extraneous-dependencies": "off",
+      "max-statements": "off",
+      "eqeqeq": "off",
+      "require-await": "off",
+      "unicorn/filename-case": "off",
+      "max-params": "off",
+      "no-use-extend-native/no-use-extend-native": "off",
+      "no-loops/no-loops": "off",
+      "jsdoc/require-returns-description": "off",
+      "unicorn/consistent-function-scoping": "off",
+      "require-jsdoc": "off",
+      "no-magic-numbers": "off",
+      "fp/no-mutating-assign": "off",
+      "fp/no-mutation": "off",
+      "init-declarations": "off",
+      "functional/no-let": "off"
+    }
+  },
+  "funding": [
+    {
+      "type": "opencollective",
+      "url": "https://opencollective.com/megabytelabs"
+    },
+    {
+      "type": "patreon",
+      "url": "https://www.patreon.com/ProfessorManhattan"
+    }
+  ],
+  "jest": {
+    "preset": "@megabytelabs/jest-preset",
+    "reporters": [
+      "default",
+      [
+        "jest-html-reporters",
+        {
+          "filename": "index.html",
+          "logoImgPath": "./.config/assets/logo-jest-report.png",
+          "openReport": true,
+          "pageTitle": "Code Coverage Report",
+          "publicPath": "./coverage"
+        }
+      ]
+    ]
+  },
   "lint-staged": {
     "**/!(logo).(jpg|png)": [
       "task image:compress --"
@@ -145,8 +198,6 @@
       "task image:compress --"
     ]
   },
-  "main": "dist/main.js",
-  "name": "semantic-release-python",
   "nodemonConfig": {
     "exec": "tsc -p . && node --inspect-brk dist/main",
     "ext": "js,jsx,json,ts,tsx,yml",
@@ -166,31 +217,12 @@
       "start": "Entrypoint for new developers that installs requirements and then runs 'task start'"
     }
   },
-  "optionalDependencies": {},
   "prettier": "@washingtondc/prettier",
-  "private": false,
-  "publishConfig": {
-    "access": "public"
-  },
   "release": {
     "branches": [
       "master",
       "next"
     ],
     "extends": "@washingtondc/release"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ProfessorManhattan/semantic-release-python.git"
-  },
-  "scripts": {
-    "help": "task --list",
-    "prepare": "task common:husky",
-    "repair": "bash <(curl -sS https://install.doctor/repair)",
-    "start": "bash .config/start.sh",
-    "test": "task install:python:venv && . .venv/bin/activate && jest"
-  },
-  "type": "module",
-  "typings": "dist/main.d.ts",
-  "version": "2.5.0"
+  }
 }
