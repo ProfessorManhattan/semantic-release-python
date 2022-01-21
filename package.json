@@ -15,9 +15,9 @@
     "url": "https://gitlab.com/megabyte-labs/npm/plugin/semantic-release-python/-/issues"
   },
   "type": "module",
-  "main": "src/main.js",
+  "main": "dist/main.js",
   "files": [
-    "src"
+    "dist"
   ],
   "scripts": {
     "help": "task --list",
@@ -81,6 +81,9 @@
   "blueprint": {
     "customPackageName": "semantic-release-python",
     "description": "A semantic-release plugin that allows you to upload to PyPi (supports Poetry projects too!)",
+    "github_id": "R_kgDOGtuKiw",
+    "gitlab_group_id": "14035198",
+    "gitlab_project_id": "33027011",
     "group": "npm",
     "name": "Semantic Release Python",
     "overview": "**Semantic Release Python** is a [Semantic Release]() plugin that brings support for managing the publication of PyPi packages. It supports traditional Python projects with a `setup.cfg` file and also **supports Poetry projects**. Note that in order for this plugin to work, you need to have Python 3 installed on your system. After installing the plugin, a few supporting Python packages will automatically be installed.",
@@ -90,10 +93,7 @@
     },
     "slug": "semantic-release-python",
     "subgroup": "plugin",
-    "title": "Semantic Release Python",
-    "github_id": "R_kgDOGtuKiw",
-    "gitlab_project_id": "33027011",
-    "gitlab_group_id": "14035198"
+    "title": "Semantic Release Python"
   },
   "commitlint": {
     "extends": [
@@ -104,36 +104,38 @@
   "eslintConfig": {
     "extends": "eslint-config-strict-mode",
     "rules": {
-      "jsdoc/require-returns": "off",
-      "functional/immutable-data": "off",
-      "functional/no-try-statement": "off",
-      "functional/no-throw-statement": "off",
-      "jsdoc/require-param-description": "off",
-      "jsdoc/require-param-type": "off",
-      "no-undef": "off",
-      "no-useless-concat": "off",
-      "no-undefined": "off",
-      "unicorn/no-null": "off",
-      "unicorn/prefer-module": "off",
-      "no-await-in-loop": "off",
-      "fp/no-loops": "off",
-      "unicorn/prevent-abbreviations": "off",
-      "import/no-extraneous-dependencies": "off",
-      "max-statements": "off",
       "eqeqeq": "off",
-      "require-await": "off",
-      "unicorn/filename-case": "off",
-      "max-params": "off",
-      "no-use-extend-native/no-use-extend-native": "off",
-      "no-loops/no-loops": "off",
-      "jsdoc/require-returns-description": "off",
-      "unicorn/consistent-function-scoping": "off",
-      "require-jsdoc": "off",
-      "no-magic-numbers": "off",
+      "fp/no-loops": "off",
       "fp/no-mutating-assign": "off",
       "fp/no-mutation": "off",
+      "fp/no-throw": "off",
+      "functional/immutable-data": "off",
+      "functional/no-let": "off",
+      "functional/no-loop-statement": "off",
+      "functional/no-throw-statement": "off",
+      "functional/no-try-statement": "off",
+      "import/no-extraneous-dependencies": "off",
       "init-declarations": "off",
-      "functional/no-let": "off"
+      "jsdoc/require-param-description": "off",
+      "jsdoc/require-param-type": "off",
+      "jsdoc/require-returns": "off",
+      "jsdoc/require-returns-description": "off",
+      "max-params": "off",
+      "max-statements": "off",
+      "no-await-in-loop": "off",
+      "no-loops/no-loops": "off",
+      "no-magic-numbers": "off",
+      "no-undef": "off",
+      "no-undefined": "off",
+      "no-use-extend-native/no-use-extend-native": "off",
+      "no-useless-concat": "off",
+      "require-await": "off",
+      "require-jsdoc": "off",
+      "unicorn/consistent-function-scoping": "off",
+      "unicorn/filename-case": "off",
+      "unicorn/no-null": "off",
+      "unicorn/prefer-module": "off",
+      "unicorn/prevent-abbreviations": "off"
     }
   },
   "funding": [

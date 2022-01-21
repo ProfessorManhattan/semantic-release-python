@@ -38,7 +38,7 @@ async function run() {
       ' include_role -a name=<role_name>" after installing the role and its dependencies with ansible-galaxy.'
   )
   const sudoPass = await promptForSudoPass()
-  // eslint-disable-next-line functional/no-try-statement
+
   try {
     return execSync(
       // eslint-disable-next-line no-secrets/no-secrets

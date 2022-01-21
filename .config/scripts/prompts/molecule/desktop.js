@@ -52,7 +52,7 @@ async function run() {
       ' be the latest version.'
   )
   const environment = await promptForDesktop()
-  // eslint-disable-next-line functional/no-try-statement
+
   try {
     return execSync(
       // eslint-disable-next-line no-secrets/no-secrets

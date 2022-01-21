@@ -51,7 +51,7 @@ async function promptForTestType() {
  *
  * @returns {Promise} Promise that resolves to an execSync call that runs a Taskfile.yml task
  */
-// eslint-disable-next-line max-statements, require-jsdoc, max-lines-per-function
+// eslint-disable-next-line max-lines-per-function
 async function run() {
   logInstructions('Molecule Test', 'There are currently five different options for running Molecule tests.\n\n')
   logRaw(chalk.bold('1. VirtualBox:Headless:'))
@@ -94,7 +94,6 @@ async function run() {
   )
   const testType = await promptForTestType()
 
-  // eslint-disable-next-line functional/no-try-statement
   try {
     if (testType.includes('Local')) {
       // eslint-disable-next-line no-secrets/no-secrets

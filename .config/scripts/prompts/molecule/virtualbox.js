@@ -50,7 +50,7 @@ async function run() {
       ' of this type of test have the final say.'
   )
   const group = await promptForGroup()
-  // eslint-disable-next-line functional/no-try-statement
+
   try {
     return execSync(
       // eslint-disable-next-line no-secrets/no-secrets

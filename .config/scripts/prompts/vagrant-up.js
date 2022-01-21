@@ -1,4 +1,4 @@
-/* eslint-disable functional/immutable-data, fp/no-mutating-methods, jsdoc/require-returns-type */
+/* eslint-disable fp/no-mutating-methods, jsdoc/require-returns-type */
 
 import inquirer from 'inquirer'
 import { execSync } from 'node:child_process'
@@ -48,7 +48,6 @@ const execPowerShell = (cmd) => execSync(cmd, optionsPowerShell)
  */
 const isUnixInstalled = (program) => {
   if (process.platform === 'linux') {
-    // eslint-disable-next-line functional/no-try-statement
     try {
       exec(`hash ${program} 2>/dev/null`)
 
@@ -163,7 +162,10 @@ async function promptForDesktop() {
  *
  * @returns The chosen virtualization provider
  */
-// eslint-disable-next-line max-statements, require-jsdoc
+
+/**
+ *
+ */
 async function promptForPlatform() {
   const choices = []
   if (

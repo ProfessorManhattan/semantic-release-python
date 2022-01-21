@@ -117,7 +117,10 @@ async function promptForDescription() {
  * @param {string} gitUrl - The GitLab URL
  * @returns {string} The group
  */
-// eslint-disable-next-line max-statements, require-jsdoc
+
+/**
+ * @param gitUrl
+ */
 async function promptForGroup(gitUrl) {
   const currentGroup = execSync(`jq -r '.blueprint.group' package.json`).toString().trimEnd()
   if (currentGroup !== 'null') {
@@ -221,7 +224,11 @@ const choiceOptions = {
  * @param {string} group - The project's group
  * @returns {string} The subgroup
  */
-// eslint-disable-next-line max-statements, require-jsdoc
+
+/**
+ * @param gitUrl
+ * @param group
+ */
 async function promptForSubgroup(gitUrl, group) {
   const currentSubgroup = execSync(`jq -r '.blueprint.subgroup' package.json`).toString().trimEnd()
   if (currentSubgroup !== 'null') {
@@ -328,9 +335,11 @@ async function gitlabPrompt() {
  *
  * @returns {*} An object containing the GitLab and GitHub repositories
  */
-// eslint-disable-next-line max-statements, require-jsdoc
+
+/**
+ *
+ */
 async function getGitRepositories() {
-  // eslint-disable-next-line functional/no-try-statement
   try {
     const gitOrigin = execSync(`git remote get-url origin`).toString().trimEnd()
     if (gitOrigin.includes('gitlab.com')) {
@@ -356,7 +365,7 @@ async function getGitRepositories() {
         gitlab
       }
     }
-    // eslint-disable-next-line functional/no-throw-statement, fp/no-throw
+
     throw Error
   } catch {
     const gitlab = await gitlabPrompt()
@@ -394,7 +403,10 @@ async function promptForOverview() {
 /**
  * Main script logic
  */
-// eslint-disable-next-line require-jsdoc
+
+/**
+ *
+ */
 async function run() {
   logInstructions(
     'Package Initialization',

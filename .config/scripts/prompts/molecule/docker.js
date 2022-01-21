@@ -51,7 +51,7 @@ async function run() {
       ' test an Ansible play, a VirtualBox method should be used instead.'
   )
   const group = await promptForGroup()
-  // eslint-disable-next-line functional/no-try-statement
+
   try {
     return execSync(
       // eslint-disable-next-line no-secrets/no-secrets

@@ -44,7 +44,10 @@ async function promptForInventory() {
  *
  * @returns {Promise} Promise that resolves to execSync calls that run the main.yml playbook
  */
-// eslint-disable-next-line require-jsdoc
+
+/**
+ *
+ */
 async function run() {
   logInstructions('Run the Playbook', 'These set of prompts will run the main.yml playbook after you specify:\n\n')
   logRaw(chalk.bold('1. The "environment"'))
@@ -61,7 +64,6 @@ async function run() {
       ' It is assumed that your sudo username and password are encrypted inside the inventory (via "ansible-vault").'
   )
 
-  // eslint-disable-next-line functional/no-try-statement
   try {
     execSync(`task environment`, { stdio: 'inherit' })
     const inventory = await promptForInventory()

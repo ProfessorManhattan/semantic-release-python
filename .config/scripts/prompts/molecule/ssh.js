@@ -58,7 +58,7 @@ async function run() {
       ' not require any passwords to establish the connection.'
   )
   const details = await promptForSSHDetails()
-  // eslint-disable-next-line functional/no-try-statement
+
   try {
     return execSync(
       // eslint-disable-next-line no-secrets/no-secrets
