@@ -7,7 +7,7 @@ const FormData = require('form-data')
 /**
  * @param name
  */
-function assertEnvironmentVariable(name) {
+function assertEnvVar(name) {
   if (!process.env[name]) {
     throw new Error(`Environment variable ${name} is not set`)
   }
@@ -15,13 +15,13 @@ function assertEnvironmentVariable(name) {
 
 /**
  * @param executable
- * @param arguments_
+ * @param args
  * @param exitCode
  */
-async function assertExitCode(executable, arguments_ = [], exitCode = 0) {
+async function assertExitCode(executable, args = [], exitCode = 0) {
   let res
   try {
-    res = await execa(executable, arguments_)
+    res = await execa(executable, args)
   } catch (error) {
     res = error
   }
@@ -82,10 +82,9 @@ async function verifyAuth(repoUrl, username, token) {
 
 /**
  * @param pluginConfig
- * @param root0
- * @param root0.logger
+ * @param logger
  */
-async function verify(pluginConfig, { logger }) {
+async function verifySetupCfg(pluginConfig, logger) {
   const setupPy = getOption(pluginConfig, 'setupPy')
   const pypiPublish = getOption(pluginConfig, 'pypiPublish')
 
@@ -94,7 +93,7 @@ async function verify(pluginConfig, { logger }) {
     const token = process.env.PYPI_TOKEN
     const repoUrl = process.env.PYPI_REPO_URL ? process.env.PYPI_REPO_URL : getOption(pluginConfig, 'repoUrl')
 
-    assertEnvironmentVariable('PYPI_TOKEN')
+    assertEnvVar('PYPI_TOKEN')
 
     logger.log('Check if setuptools, wheel and twine are installed')
     await assertPackage('setuptools')
@@ -109,8 +108,48 @@ async function verify(pluginConfig, { logger }) {
   await verifySetupPy(setupPy)
 }
 
+/**
+ * @param pluginConfig
+ * @param logger
+ */
+async function verifyPoetry(pluginConfig, logger) {
+  const pypiPublish = getOption(pluginConfig, 'pypiPublish')
+
+  if (pypiPublish !== false) {
+    const username = process.env.PYPI_USERNAME ? process.env.PYPI_USERNAME : '__token__'
+    const token = process.env.PYPI_TOKEN
+    const repoUrl = process.env.PYPI_REPO_URL ? process.env.PYPI_REPO_URL : getOption(pluginConfig, 'repoUrl')
+
+    assertEnvVar('PYPI_TOKEN')
+
+    logger.log('Check if poetry is installed')
+    await assertExitCode('poetry')
+
+    logger.log(`Verify authentication for ${username}@${repoUrl}`)
+    await verifyAuth(repoUrl, username, token)
+  }
+}
+
+/**
+ * @param pluginConfig
+ * @param root0
+ * @param root0.logger
+ */
+async function verify(pluginConfig, { logger }) {
+  if (fs.existsSync('./setup.cfg')) {
+    await verifySetupCfg(pluginConfig, logger)
+  } else if (fs.existsSync('./pyproject.toml')) {
+    await verifyPoetry(pluginConfig, logger)
+  } else {
+    const pypiPublish = getOption(pluginConfig, 'pypiPublish')
+    if (pypiPublish !== false) {
+      throw new Error(`Project must have either a setup.cfg or a pyproject.toml file`)
+    }
+  }
+}
+
 module.exports = {
-  assertEnvVar: assertEnvironmentVariable,
+  assertEnvVar,
   assertExitCode,
   assertPackage,
   verify,
