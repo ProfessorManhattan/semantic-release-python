@@ -82,6 +82,12 @@
     "customPackageName": "semantic-release-python",
     "description": "A semantic-release plugin that allows you to upload to PyPi (supports Poetry projects too!)",
     "github_id": "R_kgDOGtuKiw",
+    "jsonOverrides": {
+      "package.json": {
+        "files": ["docs/CHANGELOG.md", "LICENSE", "README.md", "src", "index.js"],
+        "main": "index.js"
+      }
+    },
     "gitlab_group_id": "14035198",
     "gitlab_project_id": "33027011",
     "group": "npm",
