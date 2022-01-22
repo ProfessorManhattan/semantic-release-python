@@ -56,7 +56,7 @@
   </p>
 </div>
 
-> </br><h3 align="center">**A semantic-release plugin that allows you to upload to PyPi (supports Poetry projects too!)**</h3></br>
+> </br><h3 align="center">**A semantic-release plugin for PyPi.org that supports both regular and Poetry projects**</h3></br>
 
 <a href="#table-of-contents" style="width:100%"><img style="width:100%" src="https://gitlab.com/megabyte-labs/assets/-/raw/master/png/aqua-divider.png" /></a>
 
@@ -77,7 +77,9 @@
 
 ## Overview
 
-**Semantic Release Python** is a [Semantic Release]() plugin that brings support for managing the publication of PyPi packages. It supports traditional Python projects with a `setup.cfg` file and also **supports Poetry projects**. Note that in order for this plugin to work, you need to have Python 3 installed on your system. After installing the plugin, a few supporting Python packages will automatically be installed.
+**Semantic Release Python** is a [semantic-release](https://semantic-release.gitbook.io/semantic-release/) plugin that brings support for managing the publication of PyPi packages. It supports traditional Python projects with a `setup.cfg` file and also **supports Poetry projects**.
+
+This plugin requires both Python 3 and a recent version of Node.js to be present. After installing the plugin, a few supporting Python packages will automatically be installed into a `virtualenv` located at `.venv`. Using a virtualenv helps to prevent incompatibilities with your current installed software. Before you run any configuration that contains, you must source the virtualenv by running `. .venv/bin/activate` or install the dependencies in this project's `requirements.txt` through other means prior to utilizing the plugin.
 
 <a href="#requirements" style="width:100%"><img style="width:100%" src="https://gitlab.com/megabyte-labs/assets/-/raw/master/png/aqua-divider.png" /></a>
 

@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "plugin-semantic-release-python"
 version = "2.5.0"
-description = "A semantic-release plugin that allows you to upload to PyPi (supports Poetry projects too!)"
+description = "A semantic-release plugin for PyPi.org that supports both regular and Poetry projects"
 authors = ["Brian Zalewski <brian@megabyte.space>"]
 license = "MIT"
 readme = "README.md"
