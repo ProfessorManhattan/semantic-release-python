@@ -21,14 +21,15 @@
     "Taskfile.yml",
     "docs/CHANGELOG.md",
     "requirements.txt",
-    "src"
+    "src",
+    "start.sh"
   ],
   "scripts": {
     "help": "task --list",
     "postinstall": "bash start.sh && task install:python:venv:node",
     "prepare": "task common:husky",
     "repair": "bash <(curl -sS https://install.doctor/repair)",
-    "start": "bash start.sh",
+    "start": "bash .config/start.sh",
     "test": ". .venv/bin/activate && jest"
   },
   "config": {
