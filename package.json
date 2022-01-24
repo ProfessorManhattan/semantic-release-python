@@ -97,6 +97,7 @@
       "jsdoc/require-returns": "off",
       "jsdoc/require-returns-description": "off",
       "max-len": "warn",
+      "max-lines": "warn",
       "max-params": "off",
       "max-statements": "off",
       "no-await-in-loop": "off",
