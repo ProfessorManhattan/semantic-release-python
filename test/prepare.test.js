@@ -1,4 +1,4 @@
-const { setReleaseVersion, sDistPackage, bDistPackage } = require('../lib/prepare')
+const { setReleaseVersion, sDistPackage, bDistPackage } = require('../src/prepare')
 const path = require('path')
 const fs = require('fs-extra')
 const { genPackage } = require('./util')

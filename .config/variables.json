@@ -111,7 +111,7 @@
   "npm_scripts_prepare": "task common:husky",
   "npm_scripts_start": "bash .config/start.sh",
   "npm_standard_version_prerelease": "git add --all",
-  "npm_type": "module",
+  "npm_type": "commonjs",
   "organization": "Megabyte Labs",
   "overview": "[[ This is a new repository without the details filled in yet. Look for the section about blueprint data in the CONTRIBUTING.md to set up the project. ]]",
   "profile": {

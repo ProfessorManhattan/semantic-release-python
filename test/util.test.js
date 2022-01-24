@@ -1,4 +1,4 @@
-const { getOption, normalizeVersion } = require('../lib/util')
+const { getOption, normalizeVersion } = require('../src/util')
 
 test('test getOption', async () => {
   expect(getOption({}, 'distDir')).toBe('dist')
