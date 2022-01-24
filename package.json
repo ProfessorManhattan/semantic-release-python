@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "semantic-release-python",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "description": "A semantic-release plugin for PyPi.org that supports both regular and Poetry projects",
   "license": "MIT",
   "author": "Brian Zalewski <brian@megabyte.space> (https://megabyte.space)",
@@ -14,7 +14,7 @@
     "email": "help@megabyte.space",
     "url": "https://gitlab.com/megabyte-labs/npm/plugin/semantic-release-python/-/issues"
   },
-  "type": "module",
+  "type": "commonjs",
   "main": "index.js",
   "files": [
     ".config",
