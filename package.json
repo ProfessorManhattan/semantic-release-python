@@ -14,7 +14,7 @@
     "email": "help@megabyte.space",
     "url": "https://gitlab.com/megabyte-labs/npm/plugin/semantic-release-python/-/issues"
   },
-  "type": "commonjs",
+  "type": "module",
   "main": "index.js",
   "files": [
     ".config",
@@ -57,6 +57,7 @@
     "eslint-plugin-jest": "^25.7.0",
     "fs-extra": "^10.0.0",
     "jest": "^26.6.3",
+    "semantic-release-config": "^0.0.2",
     "sleekfast": "^0.0.1",
     "uuid": "^8.3.1"
   },
@@ -124,6 +125,7 @@
   "eslintConfig": {
     "extends": "eslint-config-strict-mode",
     "rules": {
+      "@typescript-eslint/no-var-requires": "off",
       "eqeqeq": "off",
       "filenames/no-index": "off",
       "fp/no-loops": "off",
@@ -243,6 +245,7 @@
   "prettier": "@washingtondc/prettier",
   "release": {
     "branches": [
+      "main",
       "next",
       {
         "name": "beta",
@@ -253,6 +256,6 @@
         "prerelease": true
       }
     ],
-    "extends": "@washingtondc/release"
+    "extends": "semantic-release-config"
   }
 }
