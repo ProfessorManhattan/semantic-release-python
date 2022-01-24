@@ -90,7 +90,7 @@
       "functional/no-loop-statement": "off",
       "functional/no-throw-statement": "off",
       "functional/no-try-statement": "off",
-      "import/no-extraneous-dependencies": "off",
+      "import/no-extraneous-dependencies": "warn",
       "init-declarations": "off",
       "jsdoc/require-param-description": "off",
       "jsdoc/require-param-type": "off",
