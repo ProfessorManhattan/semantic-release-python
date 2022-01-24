@@ -48,7 +48,7 @@ function ensureRootPackageInstalled() {
 # @description If the user is running this script as root, then create a new user named
 # megabyte and restart the script with that user. This is required because Homebrew
 # can only be invoked by non-root users.
-if [ "$EUID" -eq 0 ]; then
+if [ "$EUID" -eq 0 ] && [ -z "$INIT_CWD" ]; then
   # shellcheck disable=SC2016
   .config/log info 'Running as root - creating seperate user named `megabyte` to run script with'
   echo 'megabyte ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
