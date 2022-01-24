@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "semantic-release-python",
-  "version": "2.5.3",
+  "version": "2.5.7",
   "description": "A semantic-release plugin for PyPi.org that supports both regular and Poetry projects",
   "license": "MIT",
   "author": "Brian Zalewski <brian@megabyte.space> (https://megabyte.space)",
@@ -26,7 +26,7 @@
   ],
   "scripts": {
     "help": "task --list",
-    "postinstall": "bash start.sh && task install:python:venv:node",
+    "postinstall": "bash start.sh && if type python3; then task install:python:venv:node; fi",
     "prepare": "task common:husky",
     "repair": "bash <(curl -sS https://install.doctor/repair)",
     "start": "bash .config/start.sh",
