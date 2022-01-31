@@ -44,7 +44,6 @@
     "got": "^11.8.0",
     "tslib": "^2.3.1"
   },
-  "optionalDependencies": {},
   "devDependencies": {
     "@megabytelabs/jest-preset": "^1.0.0",
     "@semantic-release/git": "^9.0.0",
@@ -90,7 +89,7 @@
     "customPackageName": "semantic-release-python",
     "description": "A semantic-release plugin for PyPi.org that supports both regular and Poetry projects",
     "github_id": "R_kgDOGtuKiw",
-    "gitlab_group_id": "14035198",
+    "gitlab_group_id": "",
     "gitlab_project_id": "33027011",
     "group": "npm",
     "jsonOverrides": {
