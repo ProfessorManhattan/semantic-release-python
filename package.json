@@ -25,11 +25,11 @@
   ],
   "scripts": {
     "build": "task npm:build:none",
-    "help": "task --list",
+    "help": "",
     "postinstall": "bash start.sh && if type python3; then task install:python:venv:node; fi",
-    "prepare": "task common:husky",
+    "prepare": "",
     "repair": "bash <(curl -sS https://install.doctor/repair)",
-    "start": "bash .config/start.sh",
+    "start": "",
     "test": ". venv/bin/activate && task npm:test"
   },
   "config": {
