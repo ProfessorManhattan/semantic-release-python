@@ -1,4 +1,4 @@
-const { setopt } = require('../src/util')
+const { setopt } = require('../lib/util')
 const path = require('path')
 const fs = require('fs-extra')
 const got = require('got')

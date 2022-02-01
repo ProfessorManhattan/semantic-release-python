@@ -5,9 +5,9 @@ tasks:
   pip:
     run: when_changed
     log:
+      error: Failed to install pip3 package `{{.PACKAGE}}`
       start: Installing pip3 package `{{.PACKAGE}}`
       success: Installed pip3 package `{{.PACKAGE}}`
-      error: Failed to install pip3 package `{{.PACKAGE}}`
     cmds:
       - task: :install:software:python
       - pip3 install {{.PACKAGE}}
@@ -17,9 +17,9 @@ tasks:
   pipx:
     run: when_changed
     log:
+      error: Failed to install `{{.PACKAGE}}` with pipx
       start: Installing `{{.PACKAGE}}` with pipx
       success: Successfully installed `{{.PACKAGE}}` with pipx
-      error: Failed to install `{{.PACKAGE}}` with pipx
     cmds:
       - task: :install:software:pipx
       - |
@@ -76,9 +76,9 @@ tasks:
       GCC5_MISSING_MESSAGE: 'It looks like your system is missing gcc-5 but gcc is available. You might be prompted
         for your sudo password to run the following command:'
     log:
+      error: Error checking `gcc`
       start: Checking if `gcc` should be symlinked to `gcc-5`
       success: Checked `gcc`
-      error: Error checking `gcc`
     cmds:
       - |
         if which gcc; then
@@ -97,13 +97,13 @@ tasks:
 
   venv:node:
     log:
-      error: Encountered error while setting up `.venv` environment.. Is Python 3 installed?
-      start: Setting up a Python 3 `.venv`
-      success: Finished setting up `.venv`. Run `. .venv/bin/activate` to load the environment into your shell.
+      error: Encountered error while setting up `venv` environment.. Is Python 3 installed?
+      start: Setting up a Python 3 `venv`
+      success: Finished setting up `venv`. Run `. venv/bin/activate` to load the environment into your shell.
     cmds:
       - task: :install:software:python
       - |
-        REQUIREMENTS_PATH="$PWD/src/requirements.txt"
+        REQUIREMENTS_PATH="$PWD/lib/requirements.txt"
         cd "$INIT_CWD" || exit
         if [ ! -f venv/bin/activate ]; then
           python3 -m venv venv || exit 0
