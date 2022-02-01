@@ -59,6 +59,7 @@
     "eslint-plugin-jest": "^25.7.0",
     "fs-extra": "^10.0.0",
     "jest": "^26.6.3",
+    "jest-preset-ts": "^1.0.0",
     "semantic-release-config": "^0.0.12",
     "sleekfast": "^0.0.1",
     "uuid": "^8.3.1"
@@ -183,7 +184,7 @@
     }
   ],
   "jest": {
-    "preset": "@megabytelabs/jest-preset",
+    "preset": "jest-preset-ts",
     "reporters": [
       "default",
       [
