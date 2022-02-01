@@ -1,49 +1,68 @@
 {
-  "private": false,
-  "name": "semantic-release-python",
-  "version": "2.5.14",
-  "description": "A semantic-release plugin for PyPi.org that supports both regular and Poetry projects",
-  "license": "MIT",
   "author": "Brian Zalewski <brian@megabyte.space> (https://megabyte.space)",
-  "homepage": "https://megabyte.space",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ProfessorManhattan/semantic-release-python.git"
+  "blueprint": {
+    "customPackageName": "semantic-release-python",
+    "description": "A semantic-release plugin for PyPi.org that supports both regular and Poetry projects",
+    "github_id": "R_kgDOGtuKiw",
+    "gitlab_group_id": "",
+    "gitlab_project_id": "33027011",
+    "group": "npm",
+    "jsonOverrides": {
+      "package.json": {
+        "files": [
+          ".config/taskfiles",
+          "LICENSE",
+          "README.md",
+          "Taskfile.yml",
+          "start.sh",
+          "lib",
+          "index.js"
+        ],
+        "main": "index.js"
+      }
+    },
+    "name": "Semantic Release Python",
+    "overview": "**Semantic Release Python** is a [semantic-release](https://semantic-release.gitbook.io/semantic-release/) plugin that brings support for managing the publication of PyPi packages. It supports traditional Python projects with a `setup.cfg` file and also **supports Poetry projects**.\n\nThis plugin requires both Python 3 and a recent version of Node.js to be present. After installing the plugin, a few supporting Python packages will automatically be installed into a `virtualenv` located at `.venv`. Using a virtualenv helps to prevent incompatibilities with your current installed software. Before you run any configuration that contains, you must source the virtualenv by running `. venv/bin/activate` or install the dependencies in this project's `requirements.txt` through other means prior to utilizing the plugin.",
+    "repository": {
+      "github": "https://github.com/ProfessorManhattan/semantic-release-python",
+      "gitlab": "https://gitlab.com/megabyte-labs/npm/plugin/semantic-release-python"
+    },
+    "slug": "semantic-release-python",
+    "subgroup": "plugin",
+    "title": "Semantic Release Python (with Poetry Support)"
   },
   "bugs": {
     "email": "help@megabyte.space",
     "url": "https://gitlab.com/megabyte-labs/npm/plugin/semantic-release-python/-/issues"
   },
-  "type": "commonjs",
-  "main": "index.js",
-  "files": [
-    ".config",
-    "Taskfile.yml",
-    "docs/CHANGELOG.md",
-    "requirements.txt",
-    "src",
-    "start.sh"
-  ],
-  "scripts": {
-    "help": "task --list",
-    "postinstall": "bash start.sh && if type python3; then task install:python:venv:node; fi",
-    "prepare": "task common:husky",
-    "repair": "bash <(curl -sS https://install.doctor/repair)",
-    "start": "bash .config/start.sh",
-    "test": ". venv/bin/activate && jest"
+  "changelog": {
+    "displayTypes": [
+      "feat",
+      "fix",
+      "perf",
+      "refactor",
+      "revert"
+    ],
+    "showAuthor": true
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ],
+    "helpUrl": "https://megabyte.space/docs/contributing/commits"
   },
   "config": {
     "commitizen": {
       "path": "node_modules/cz-emoji-conventional"
     }
   },
-  "typings": "dist/main.d.ts",
   "dependencies": {
     "execa": "^4.1.0",
     "form-data": "^3.0.0",
     "got": "^11.8.0",
     "tslib": "^2.3.1"
   },
+  "description": "A semantic-release plugin for PyPi.org that supports both regular and Poetry projects",
   "devDependencies": {
     "@megabytelabs/jest-preset": "^1.0.0",
     "@semantic-release/git": "^9.0.0",
@@ -62,67 +81,8 @@
     "sleekfast": "^0.0.1",
     "uuid": "^8.3.1"
   },
-  "keywords": [
-    "mblabs",
-    "megabytelabs",
-    "plugin",
-    "poetry",
-    "professormanhattan",
-    "publish",
-    "pypi",
-    "pyproject",
-    "python",
-    "python package",
-    "python3",
-    "semantic",
-    "semantic-release",
-    "setupcfg",
-    "washingtondc"
-  ],
   "engines": {
     "node": ">=14.18.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "blueprint": {
-    "customPackageName": "semantic-release-python",
-    "description": "A semantic-release plugin for PyPi.org that supports both regular and Poetry projects",
-    "github_id": "R_kgDOGtuKiw",
-    "gitlab_group_id": "",
-    "gitlab_project_id": "33027011",
-    "group": "npm",
-    "jsonOverrides": {
-      "package.json": {
-        "files": [
-          ".config",
-          "docs/CHANGELOG.md",
-          "LICENSE",
-          "README.md",
-          "Taskfile.yml",
-          "requirements.txt",
-          "start.sh",
-          "src",
-          "index.js"
-        ],
-        "main": "index.js"
-      }
-    },
-    "name": "Semantic Release Python",
-    "overview": "**Semantic Release Python** is a [semantic-release](https://semantic-release.gitbook.io/semantic-release/) plugin that brings support for managing the publication of PyPi packages. It supports traditional Python projects with a `setup.cfg` file and also **supports Poetry projects**.\n\nThis plugin requires both Python 3 and a recent version of Node.js to be present. After installing the plugin, a few supporting Python packages will automatically be installed into a `virtualenv` located at `.venv`. Using a virtualenv helps to prevent incompatibilities with your current installed software. Before you run any configuration that contains, you must source the virtualenv by running `. venv/bin/activate` or install the dependencies in this project's `requirements.txt` through other means prior to utilizing the plugin.",
-    "repository": {
-      "github": "https://github.com/ProfessorManhattan/semantic-release-python",
-      "gitlab": "https://gitlab.com/megabyte-labs/npm/plugin/semantic-release-python"
-    },
-    "slug": "semantic-release-python",
-    "subgroup": "plugin",
-    "title": "Semantic Release Python"
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ],
-    "helpUrl": "https://megabyte.space/docs/contributing/commits"
   },
   "eslintConfig": {
     "extends": "eslint-config-strict-mode",
@@ -165,6 +125,15 @@
       "unicorn/prevent-abbreviations": "off"
     }
   },
+  "files": [
+    ".config/taskfiles",
+    "LICENSE",
+    "README.md",
+    "Taskfile.yml",
+    "start.sh",
+    "lib",
+    "index.js"
+  ],
   "funding": [
     {
       "type": "opencollective",
@@ -175,6 +144,7 @@
       "url": "https://www.patreon.com/ProfessorManhattan"
     }
   ],
+  "homepage": "https://megabyte.space",
   "jest": {
     "preset": "@megabytelabs/jest-preset",
     "reporters": [
@@ -191,6 +161,24 @@
       ]
     ]
   },
+  "keywords": [
+    "mblabs",
+    "megabytelabs",
+    "plugin",
+    "poetry",
+    "professormanhattan",
+    "publish",
+    "pypi",
+    "pyproject",
+    "python",
+    "python package",
+    "python3",
+    "semantic",
+    "semantic-release",
+    "setupcfg",
+    "washingtondc"
+  ],
+  "license": "MIT",
   "lint-staged": {
     "**/!(logo).(jpg|png)": [
       "task image:compress --"
@@ -227,6 +215,8 @@
       "task image:compress --"
     ]
   },
+  "main": "index.js",
+  "name": "semantic-release-python",
   "nodemonConfig": {
     "exec": "tsc -p . && node --inspect-brk dist/main",
     "ext": "js,jsx,json,ts,tsx,yml",
@@ -240,13 +230,17 @@
   },
   "ntl": {
     "descriptions": {
-      "help": "Display a list of tasks that can be run via the Taskfile.yml",
+      "help": "Display the Bodega Taskfile.yml interactive help menu",
       "prepare": "Hook, triggered by running npm install, that runs logic such as installing pre-commit hooks",
       "repair": "Fixes basic issues in projects that are having trouble running basic commands like 'task start'",
       "start": "Entrypoint for new developers that installs requirements and then runs 'task start'"
     }
   },
   "prettier": "@washingtondc/prettier",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "release": {
     "branches": [
       "main",
@@ -262,5 +256,20 @@
       }
     ],
     "extends": "semantic-release-config"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ProfessorManhattan/semantic-release-python.git"
+  },
+  "scripts": {
+    "help": "task --list",
+    "postinstall": "bash start.sh && if type python3; then task install:python:venv:node; fi",
+    "prepare": "task common:husky",
+    "repair": "bash <(curl -sS https://install.doctor/repair)",
+    "start": "bash .config/start.sh",
+    "test": ". venv/bin/activate && jest"
+  },
+  "type": "commonjs",
+  "typings": "dist/main.d.ts",
+  "version": "2.5.14"
 }

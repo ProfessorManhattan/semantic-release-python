@@ -1,6 +1,6 @@
-const { verify } = require('./src/verify')
-const { prepare } = require('./src/prepare')
-const { publish } = require('./src/publish')
+const { verify } = require('./lib/verify')
+const { prepare } = require('./lib/prepare')
+const { publish } = require('./lib/publish')
 
 module.exports = {
   prepare,
