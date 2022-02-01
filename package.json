@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "semantic-release-python",
-  "version": "2.5.14",
+  "version": "2.5.15",
   "description": "A semantic-release plugin for PyPi.org that supports both regular and Poetry projects",
   "license": "MIT",
   "author": "Brian Zalewski <brian@megabyte.space> (https://megabyte.space)",
@@ -17,12 +17,14 @@
   "type": "commonjs",
   "main": "index.js",
   "files": [
+    ".config/log",
     ".config/taskfiles",
     "Taskfile.yml",
     "lib",
     "start.sh"
   ],
   "scripts": {
+    "build": "echo 'Already built.'",
     "help": "task --list",
     "postinstall": "bash start.sh && if type python3; then task install:python:venv:node; fi",
     "prepare": "task common:husky",
@@ -94,6 +96,7 @@
       "package.json": {
         "files": [
           ".config/taskfiles",
+          ".config/log",
           "LICENSE",
           "README.md",
           "Taskfile.yml",
