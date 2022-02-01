@@ -24,13 +24,13 @@
     "start.sh"
   ],
   "scripts": {
-    "build": "echo 'Already built.'",
-    "help": "task --list",
+    "build": "task npm:build:none",
+    "help": "task --menu",
     "postinstall": "bash start.sh && if type python3; then task install:python:venv:node; fi",
     "prepare": "task common:husky",
     "repair": "bash <(curl -sS https://install.doctor/repair)",
-    "start": "bash .config/start.sh",
-    "test": ". venv/bin/activate && jest"
+    "start": "bash start.sh",
+    "test": ". venv/bin/activate && task npm:test"
   },
   "config": {
     "commitizen": {
@@ -97,12 +97,9 @@
         "files": [
           ".config/taskfiles",
           ".config/log",
-          "LICENSE",
-          "README.md",
           "Taskfile.yml",
           "start.sh",
-          "lib",
-          "index.js"
+          "lib"
         ],
         "main": "index.js"
       }
