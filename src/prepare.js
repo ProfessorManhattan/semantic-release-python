@@ -71,6 +71,8 @@ async function prepareSetupCfg(pluginConfig, nextRelease, logger) {
 async function preparePoetry(pluginConfig, nextRelease, logger) {
   const setupPy = getOption(pluginConfig, 'setupPy')
 
+  const version = await normalizeVersion(nextRelease.version)
+
   logger.log(`Setting version to ${version}`)
   try {
     await execa('poetry', ['version', nextRelease.version], { cwd: path.dirname(setupPy) })
