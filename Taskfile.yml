@@ -39,6 +39,7 @@ includes:
   lint:esprint: ./.config/taskfiles/lint/Taskfile-esprint.yml
   lint:markdown: ./.config/taskfiles/lint/Taskfile-markdown.yml
   lint:prose: ./.config/taskfiles/lint/Taskfile-prose.yml
+  log: ./.config/taskfiles/log/Taskfile.yml
   nest: ./.config/taskfiles/nest/Taskfile.yml
   npm: ./.config/taskfiles/npm/Taskfile.yml
   npm:cov: ./.config/taskfiles/npm/Taskfile-cov.yml
@@ -81,6 +82,7 @@ vars:
   ESLINT_FORMATTER_OPTIONS: git-log gitlab pretty summary
   GITHUB_ORG: ProfessorManhattan
   GITHUB_USER: ProfessorManhattan
+  GROUP_EXEC_ASYNC: 'false'
   IGNORE_FOLDERS: -path './.autodoc/*' -o -path './.cache/*' -o -path './.common*' -o -path './.config/*' -o -path './.git/*'
     -o -path './.github/*' -o -path './.gitlab/*' -o -path './.husky/*' -o -path './.modules/*' -o -path './.npm/*'
     -o -path './.pnpm-store/*' -o -path './.shared/*' -o -path './.task/*' -o -path './.venv/*' -o -path './.vscode/*'
@@ -94,8 +96,7 @@ vars:
   NPM_PROGRAM_LOCAL: pnpm
   NPX_HANDLE: 'pnpx '
   NPX_PACKAGE: pnpx
-  PYTHON_HANDLE:
-    sh: if [ -z "$GITLAB_CI" ] || [[ "$OPTIMIZED_IMAGE" == 'false' ]]; then echo 'poetry run '; fi
+  PYTHON_HANDLE: 'poetry run '
   PYTHON_KEEP_UPDATED: ansibler
   PYTHON_VIRTUALENV: true
   REPOSITORY_SUBTYPE: plugin
@@ -209,6 +210,7 @@ tasks:
       `task group:exec -- group/subgroup ---- 'bash <(curl https://myscript.com)'
 
       In the example above, the bash command will be run in the root of each repository.
+      Be sure to wrap the command in quotes or you might observe some odd behavior.
     cmds:
       - task: git:gitlab:group:exec
 
@@ -231,6 +233,12 @@ tasks:
 
       If you are facing difficulties, you can try running this task to reset the project,
       perform common fixes, and run the whole start up routine.
+
+      ## Using a Custom Initialization Script
+
+      You can control the initialization script that this task runs by specifying
+      `UPDATE_INIT_SCRIPT` as an environment variable. If it is not specified, then this
+      task runs the [default script]({{.INIT_SCRIPT}}).
     log:
       error: Failed to run initialization script
       start: Initializing project by running initialization script
@@ -238,8 +246,8 @@ tasks:
     cmds:
       - git init
       - |
-        if [ -n "$GITLAB_CI" ]; then
-          if [ -n "$UPDATE_INIT_SCRIPT" ]; then bash <(curl -sSL "$UPDATE_INIT_SCRIPT"); fi
+        if [ -n "$UPDATE_INIT_SCRIPT" ]; then
+          bash <(curl -sSL "$UPDATE_INIT_SCRIPT")
         else
           bash <(curl -sSL {{.INIT_SCRIPT}})
         fi
