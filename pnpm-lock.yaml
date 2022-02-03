@@ -45,7 +45,7 @@ devDependencies:
   jest: 26.6.3
   jest-preset-ts: 1.0.0_esbuild@0.12.29+eslint@8.7.0
   prettier-config-sexy-mode: 1.0.1
-  semantic-release-config: 0.0.19
+  semantic-release-config: 1.1.0
   uuid: 8.3.2
 
 packages:
@@ -17414,8 +17414,8 @@ packages:
     engines: {node: '>=0.12.0'}
     dev: true
 
-  /semantic-release-config/0.0.19:
-    resolution: {integrity: sha512-GjRh6tzupsSVWMmUujzrn4YUxSW7hxOgodmTOaNzu2h6SxCBEk/42yMHN6QPmKWfAqHUai94+OV8KJUx8gRBDw==}
+  /semantic-release-config/1.1.0:
+    resolution: {integrity: sha512-enpMvJMLiUqasT7FVHv6bN6pGJ9CVDEzAyWUFNZ2xVb2PN0rSdumODi1i5TzPcSrC7AQFIxYobIc6nQ+1p3DVQ==}
     engines: {node: '>=14.18.0'}
     dependencies:
       '@semantic-release/changelog': 6.0.1_semantic-release@19.0.2
@@ -17427,17 +17427,18 @@ packages:
       '@semantic-release/release-notes-generator': 10.0.3_semantic-release@19.0.2
       conventional-changelog-gitmoji-config: 1.4.3
       semantic-release: 19.0.2
-      semantic-release-gh: 0.0.6_semantic-release@19.0.2
+      semantic-release-gh: 0.0.7_semantic-release@19.0.2
       semantic-release-npm-deprecate-old-versions: 1.3.2
       semantic-release-python: 2.5.16
+      tslib: 2.3.1
       yaml: 1.10.2
     transitivePeerDependencies:
       - encoding
       - supports-color
     dev: true
 
-  /semantic-release-gh/0.0.6_semantic-release@19.0.2:
-    resolution: {integrity: sha512-hsA5xAFm9ad+ZRPxHRuSVgJwHsd54k09wOoH5XJd3e6m6PTfVQ9r3rnRzWezcISLLYyGSwv1tKGsWgdGhJ84ww==}
+  /semantic-release-gh/0.0.7_semantic-release@19.0.2:
+    resolution: {integrity: sha512-T3eQwyiMXwWMzvDIFMPVn7mzJERVRZYtNEF58bVV0SL3I9UzUkM3UAY1idJUcG3ovbz7BeerfTdIAhE2GrD/sg==}
     engines: {node: '>=14.18.0'}
     peerDependencies:
       semantic-release: '>=18.0.0-beta.1'
