@@ -24,13 +24,13 @@
     "start.sh"
   ],
   "scripts": {
-    "build": "task npm:build:none",
+    "build": "task npm:build:tsconfig",
     "help": "task --menu",
     "postinstall": "bash start.sh && if type python3; then task install:python:venv:node; fi",
     "prepare": "task common:husky",
     "repair": "bash <(curl -sS https://install.doctor/repair)",
     "start": "bash start.sh",
-    "test": ". venv/bin/activate && task npm:test"
+    "test": "task npm:test:none"
   },
   "config": {
     "commitizen": {
@@ -40,27 +40,28 @@
   "typings": "dist/main.d.ts",
   "dependencies": {
     "execa": "^4.1.0",
-    "form-data": "^3.0.0",
-    "got": "^11.8.0",
+    "form-data": "^3.0.1",
+    "got": "^11.8.3",
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@megabytelabs/jest-preset": "^1.0.0",
-    "@semantic-release/git": "^9.0.0",
+    "@commitlint/config-conventional": "^16.0.0",
+    "@semantic-release/git": "^9.0.1",
     "@types/node": "^16.11.6",
-    "@washingtondc/development": "^1.0.2",
-    "@washingtondc/prettier": "^1.0.0",
-    "@washingtondc/release": "^0.0.2",
+    "@washingtondc/development": "latest",
+    "cz-emoji-conventional": "^1.0.1",
     "esbuild": "^0.12.29",
     "esbuild-node-externals": "^1.3.0",
-    "eslint": "^8.7.0",
-    "eslint-config-strict-mode": "^1.0.36",
-    "eslint-plugin-jest": "^25.7.0",
+    "eslint-config-strict-mode": "latest",
     "fs-extra": "^10.0.0",
+    "glob": "^7.2.0",
+    "handlebars-helpers": "^0.10.0",
     "jest": "^26.6.3",
-    "semantic-release-config": "^1.1.4",
     "sleekfast": "^0.0.1",
-    "uuid": "^8.3.1"
+    "jest-preset-ts": "^1.0.0",
+    "prettier-config-sexy-mode": "latest",
+    "semantic-release-config": "latest",
+    "uuid": "^8.3.2"
   },
   "keywords": [
     "mblabs",
@@ -83,6 +84,7 @@
     "node": ">=14.18.0"
   },
   "publishConfig": {
+    "@megabyte:registry": "https://gitlab.com/api/v4/projects/33027011/packages/npm/",
     "access": "public"
   },
   "blueprint": {
@@ -182,7 +184,7 @@
     }
   ],
   "jest": {
-    "preset": "@megabytelabs/jest-preset",
+    "preset": "jest-preset-ts",
     "reporters": [
       "default",
       [
@@ -246,13 +248,15 @@
   },
   "ntl": {
     "descriptions": {
+      "build": "Builds the project using the build command specified under scripts in package.json",
       "help": "Display the Bodega Taskfile.yml interactive help menu",
-      "prepare": "Hook, triggered by running npm install, that runs logic such as installing pre-commit hooks",
+      "prepare": "A hook triggered by running npm install that runs logic such as installing pre-commit hooks",
       "repair": "Fixes basic issues in projects that are having trouble running basic commands like 'task start'",
-      "start": "Entrypoint for new developers that installs requirements and then runs 'task start'"
+      "start": "Entrypoint for new developers that installs requirements and then runs 'task start'",
+      "test": "Runs the appropriate test logic by running the test command defined under scripts in package.json"
     }
   },
-  "prettier": "@washingtondc/prettier",
+  "prettier": "prettier-config-sexy-mode",
   "release": {
     "branches": [
       "main",

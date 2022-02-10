@@ -29,8 +29,8 @@
 </div>
 <br/>
 <div align="center">
-  <a href="https://www.npmjs.com/package/semantic-release-python" title="Version 2.5.15" target="_blank">
-    <img alt="Version: 2.5.15" src="https://img.shields.io/badge/version-2.5.15-blue.svg?cacheSeconds=2592000&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAACNJREFUCNdjIACY//+BEp9hhM3hAzYQwoBIAqEDYQrCZLwAAGlFKxU1nF9cAAAAAElFTkSuQmCC&style=flat-square" />
+  <a href="https://www.npmjs.com/package/semantic-release-python" title="Version 2.5.16" target="_blank">
+    <img alt="Version: 2.5.16" src="https://img.shields.io/badge/version-2.5.16-blue.svg?cacheSeconds=2592000&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAACNJREFUCNdjIACY//+BEp9hhM3hAzYQwoBIAqEDYQrCZLwAAGlFKxU1nF9cAAAAAElFTkSuQmCC&style=flat-square" />
   </a>
   <a href="https://gitlab.com/megabyte-labs/npm/plugin/semantic-release-python/-/commits/master" title="GitLab CI build status" target="_blank">
     <img alt="Build status" src="https://img.shields.io/gitlab/pipeline-status/megabyte-labs/npm/plugin/semantic-release-python?branch=master&label=build&logo=gitlab&logoColor=white&style=flat-square">

@@ -9,12 +9,16 @@ tasks:
   build:
     deps:
       - :install:go:goreleaser
+      - :install:go:nfpm
     log:
       error: GoReleaser encountered an error (config file -> `{{.GORELEASER_CONFIG}}`)
       start: Building with project with GoReleaser
       success: Completed building the project with GoReleaser
     cmds:
-      - goreleaser build --config {{.GORELEASER_CONFIG}}
+      - |
+        unset GITHUB_TOKEN
+        unset GITLAB_TOKEN
+        goreleaser build --config {{.GORELEASER_CONFIG}} --rm-dist --skip-validate
 
   check:
     deps:
@@ -29,9 +33,14 @@ tasks:
   release:
     deps:
       - :install:go:goreleaser
+      - :install:go:nfpm
     log:
       error: Encountered error while releasing with GoReleaser (config file -> `{{.GORELEASER_CONFIG}})
       start: Publishing compiled assets with GoReleaser
       success: Successfully published assets with GoReleaser!
     cmds:
-      - goreleaser release --skip-publish --config {{.GORELEASER_CONFIG}}
+      - task: :publish:snap:register
+      - |
+        unset GITHUB_TOKEN
+        unset GITLAB_TOKEN
+        GORELEASER_CURRENT_TAG=v3.9.2 goreleaser release --skip-publish --config {{.GORELEASER_CONFIG}} --rm-dist --skip-validate

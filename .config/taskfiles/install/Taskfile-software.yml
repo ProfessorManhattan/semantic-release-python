@@ -1,9 +1,14 @@
-# eslint-disable eslint-comments/disable-enable-pair, max-lines
 ---
 version: '3'
 
 tasks:
   act:
+    summary: |
+      ## Act
+
+      A program that allows you to simulate GitHub Actions locally.
+
+      [GitHub](https://github.com/nektos/act)
     run: once
     cmds:
       - task: brew:formulae
@@ -96,7 +101,7 @@ tasks:
           fi
         fi
     status:
-      - type brew &> /dev/null || [[ "$OPTIMIZED_IMAGE" == 'true' ]]
+      - type brew &> /dev/null
 
   brew:utils:
     run: once
@@ -171,8 +176,6 @@ tasks:
       success: Basic system dependencies are installed!
     cmds:
       - task: common:linux:{{.LINUX_FAMILY}}
-    status:
-      - '[[ "$OPTIMIZED_IMAGE" == "true" ]]'
 
   common:linux:archlinux:
     interactive: true
@@ -238,7 +241,7 @@ tasks:
       start: You are using an operating system that we do not directly support. Please make sure
         the equivalent of `build-essential`, `curl`, `file`, `git`, and `procps` are installed.
     cmds:
-      - echo "*** Unknown OS is $OSTYPE ***"
+      - .config/log warn "*** Unknown OS -> $OSTYPE ***"
 
   common:windows:
     log:
@@ -424,6 +427,34 @@ tasks:
   go:
     run: once
     cmds:
+      - task: go:gopath
+      - task: go:goroot
+      - task: :install:profile:add
+        vars:
+          PROFILE_STRING: export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
+      - task: go:install
+
+  go:gopath:
+    run: once
+    cmds:
+      - task: :install:profile:add
+        vars:
+          PROFILE_STRING: export GOPATH="${HOME}/.local/go"
+    status:
+      - '[ -n "$GOPATH" ]'
+
+  go:goroot:
+    run: once
+    cmds:
+      - task: :install:profile:add
+        vars:
+          PROFILE_STRING: export GOROOT="$(brew --prefix golang)/libexec"
+    status:
+      - '[ -n "$GOROOT" ]'
+
+  go:install:
+    run: once
+    cmds:
       - task: brew:formulae
         vars:
           FORMULAE: go
@@ -552,6 +583,24 @@ tasks:
           FORMULAE: rsync
     status:
       - type rsync &> /dev/null
+
+  sentry:
+    run: once
+    cmds:
+      - task: brew:formulae
+        vars:
+          FORMULAE: getsentry/tools/sentry-cli
+    status:
+      - type sentry-cli > /dev/null
+
+  snapcraft:
+    run: once
+    cmds:
+      - task: brew:formulae
+        vars:
+          FORMULAE: snapcraft
+    status:
+      - type snapcraft > /dev/null
 
   sshpass:
     run: once
