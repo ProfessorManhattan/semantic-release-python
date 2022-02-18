@@ -56,6 +56,9 @@ tasks:
     deps:
       - :install:npm:{{.NPM_PROGRAM_LOCAL}}
       - :install:npm:cz-emoji
+      - :install:software:jq
+    env:
+      SEMANTIC_PYTHON_POST_INSTALL: '{{if eq .SEMANTIC_RELEASE "true"}}true{{else}}false{{end}}'
     run: once
     log:
       error: Encountered error while installing local NPM dependencies
@@ -72,8 +75,10 @@ tasks:
             fi
           fi
         ignore_error: true
-      - pnpm install --save-dev glob # temp
-      - task: modules:local:sync
+      - |
+        if [ "$(jq -r '.devDependencies.glob' package.json)" == 'null' ] && [ "$(jq -r '.dependencies.glob' package.json)" == 'null' ]; then
+          pnpm install --save-dev glob
+        fi
     sources:
       - package.json
 

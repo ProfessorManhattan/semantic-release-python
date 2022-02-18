@@ -29,8 +29,8 @@
 </div>
 <br/>
 <div align="center">
-  <a href="https://www.npmjs.com/package/semantic-release-python" title="Version 2.5.16" target="_blank">
-    <img alt="Version: 2.5.16" src="https://img.shields.io/badge/version-2.5.16-blue.svg?cacheSeconds=2592000&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAACNJREFUCNdjIACY//+BEp9hhM3hAzYQwoBIAqEDYQrCZLwAAGlFKxU1nF9cAAAAAElFTkSuQmCC&style=flat-square" />
+  <a href="https://www.npmjs.com/package/semantic-release-python" title="Version 2.5.22" target="_blank">
+    <img alt="Version: 2.5.22" src="https://img.shields.io/badge/version-2.5.22-blue.svg?cacheSeconds=2592000&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAACNJREFUCNdjIACY//+BEp9hhM3hAzYQwoBIAqEDYQrCZLwAAGlFKxU1nF9cAAAAAElFTkSuQmCC&style=flat-square" />
   </a>
   <a href="https://gitlab.com/megabyte-labs/npm/plugin/semantic-release-python/-/commits/master" title="GitLab CI build status" target="_blank">
     <img alt="Build status" src="https://img.shields.io/gitlab/pipeline-status/megabyte-labs/npm/plugin/semantic-release-python?branch=master&label=build&logo=gitlab&logoColor=white&style=flat-square">
@@ -70,6 +70,9 @@
 - [Examples](#examples)
   - [Basic Example Using `setup.cfg`](#basic-example-using-setupcfg)
   - [Example Using Poetry](#example-using-poetry)
+- [Post-Install Hook](#post-install-hook)
+  - [Running Without Poetry](#running-without-poetry)
+  - [Bypassing the Post-Install Hook](#bypassing-the-post-install-hook)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -169,6 +172,34 @@ This plugin can be configured in the [**semantic-release** configuration file](h
   ]
 }
 ```
+
+<a href="#post-install-hook" style="width:100%"><img style="width:100%" src="https://gitlab.com/megabyte-labs/assets/-/raw/master/png/aqua-divider.png" /></a>
+
+## Post-Install Hook
+
+Whenever this package is installed, it will run a bash script that ensures [Bodega](https://github.com/ProfessorManhattan/Bodega) is installed and then install dependencies using a task defined in the Taskfiles included in the modules source. It attempts to use Poetry if it is installed but falls back to a regular venv if Poetry is not available.
+
+Using Poetry might be the easier route. It will be easier to figure out exactly how this plugin can be used (by looking at [semantic-release-config](https://github.com/ProfessorManhattan/semantic-release-config) and our [`semantic-release` task](https://gitlab.com/megabyte-labs/common/shared/-/blob/master/common/.config/taskfiles/publish/Taskfile.yml) which is run by Bodega, a fork of [go-task/task](https://github.com/go-task/task)).
+
+### Running Without Poetry
+
+If you do not use Poetry, then before running semantic-release you should ensure that you activate the virtual environment that the post-install hook should automatically install (as long as Python 3 is installed). You can activate the Python virtual environment by running:
+
+```shell
+. .venv/bin/activate
+```
+
+After you run that, you enter a shell where you will have access to the dependencies that the post-install hook installed. You can then run the semantic-release CLI.
+
+### Bypassing the Post-Install Hook
+
+There may be some cases where you do not want the dependencies to be installed automatically by the plugin. For instance, you may want to bypass the post-install hook when running in a CI environment where it does not make a difference when using Python virtual environments. To disable the post-install hook, run the following somewhere before the installation:
+
+```shell
+export SEMANTIC_PYTHON_POST_INSTALL=false
+```
+
+If `SEMANTIC_PYTHON_POST_INSTALL` is set to `false`, then the post-install hook will be skipped. This allows you to permit other NPM packages to run post-install hooks without having to disable all scripts by running `npm i --ignore-scripts`.
 
 <a href="#contributing" style="width:100%"><img style="width:100%" src="https://gitlab.com/megabyte-labs/assets/-/raw/master/png/aqua-divider.png" /></a>
 
