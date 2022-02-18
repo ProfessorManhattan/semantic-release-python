@@ -251,14 +251,6 @@ tasks:
   go:vet:
     deps:
       - :install:software:go
-    vars:
-      GO_VET_FLAGS:
-        sh: |
-          if [ -f .variables.json ]; then
-            echo " $(jq -r '.goVetFlags' .variables.json)"
-          else
-            echo " $(jq -r '.blueprint.goVetFlags' package.json | sed 's/null//')"
-          fi
     summary: |
       # Inspect with Go Vet
 
@@ -276,6 +268,14 @@ tasks:
 
       **Example of running `go vet` on a specific path:**
       `task lint:go:vet -- path/to/file.go`
+    vars:
+      GO_VET_FLAGS:
+        sh: |
+          if [ -f .variables.json ]; then
+            echo " $(jq -r '.goVetFlags' .variables.json)"
+          else
+            echo " $(jq -r '.blueprint.goVetFlags' package.json | sed 's/null//')"
+          fi
     cmds:
       - go vet{{.GO_VET_FLAGS}}{{if .CLI_ARGS}} {{.CLI_ARGS}}{{end}}
 

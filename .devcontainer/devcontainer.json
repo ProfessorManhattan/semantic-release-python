@@ -1,14 +1,7 @@
 {
-  "name": "Megabyte Labs DevContainer",
   "build": {
     "dockerfile": "Dockerfile"
   },
-  "hostRequirements": {
-    "cpus": 2,
-    "memory": "4gb",
-    "storage": "16gb"
-  },
-  "settings": {},
   "extensions": [
     "Angular.ng-template",
     "attilabuti.vscode-mjml",
@@ -93,7 +86,14 @@
     "yatki.vscode-surround"
   ],
   "forwardPorts": [8814],
+  "hostRequirements": {
+    "cpus": 2,
+    "memory": "4gb",
+    "storage": "16gb"
+  },
+  "name": "Megabyte Labs DevContainer",
   "postCreateCommand": "task init",
   "remoteUser": "megabyte",
-  "runArgs": ["--privileged"]
+  "runArgs": ["--privileged"],
+  "settings": {}
 }
