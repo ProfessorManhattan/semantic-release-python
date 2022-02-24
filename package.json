@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "semantic-release-python",
-  "version": "2.5.22",
+  "version": "2.5.24",
   "description": "A semantic-release plugin for PyPi.org that supports both regular and Poetry projects",
   "license": "MIT",
   "author": "Brian Zalewski <brian@megabyte.space> (https://megabyte.space)",
@@ -24,10 +24,10 @@
     "start.sh"
   ],
   "scripts": {
-    "build": "task npm:build:tsconfig",
+    "build": "task donothing",
     "bump": "npm run build && npm version patch --no-commit-hooks --no-git-tag-version --force && npm publish",
     "help": "task --menu",
-    "postinstall": "([ \"$SEMANTIC_PYTHON_POST_INSTALL\" != 'false' ] && type bash > /dev/null && bash start.sh && type python3 > /dev/null && INIT_CWD=$INIT_CWD task install:python:venv:node) || true",
+    "postinstall": "([ \"$SEMANTIC_PYTHON_POST_INSTALL\" == 'true' ] && type bash > /dev/null && bash start.sh && type python3 > /dev/null && INIT_CWD=$INIT_CWD task install:python:venv:node) || true",
     "prepare": "task common:husky",
     "repair": "bash <(curl -sS https://install.doctor/repair)",
     "start": "bash start.sh",
