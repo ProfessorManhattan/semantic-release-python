@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "semantic-release-python",
-  "version": "2.5.24",
+  "version": "2.5.30",
   "description": "A semantic-release plugin for PyPi.org that supports both regular and Poetry projects",
   "license": "MIT",
   "author": "Brian Zalewski <brian@megabyte.space> (https://megabyte.space)",
