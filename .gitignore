@@ -15,9 +15,14 @@ build/
 .c9/
 .cache
 .cache/
+*-latest.tar
+*-latest.tar.gz
+*-slim.tar
+*-slim.tar.gz
 .classpath
 *.code-workspace
 .com.apple.timemachine.donotpresent
+.config-old/
 connect.lock
 *.cover
 .coverage
@@ -53,6 +58,7 @@ local_settings.py
 Network Trash Folder
 .nfs*
 node_modules/
+node_modules.bak/
 nosetests.xml
 .nox/
 .npm/

@@ -3,13 +3,22 @@ version: '3'
 
 tasks:
   pip:
+    deps:
+      - :install:software:python
+    vars:
+      INSTALL_RECORD:
+        sh: |
+          if [ -n "$RECORD_INSTALL" ]; then
+            mkdir -p local/slim
+            echo '{{.PACKAGE}}' >> local/slim/exe.txt
+            echo '{{.INSTALL_TASK}}' >> local/slim/install.txt
+          fi
     run: when_changed
     log:
       error: Failed to install pip3 package `{{.PACKAGE}}`
       start: Installing pip3 package `{{.PACKAGE}}`
       success: Installed pip3 package `{{.PACKAGE}}`
     cmds:
-      - task: :install:software:python
       - pip3 install {{.PACKAGE}}
     status:
       - type {{.PACKAGE}} > /dev/null
@@ -17,6 +26,14 @@ tasks:
   pipx:
     deps:
       - :install:software:pipx
+    vars:
+      INSTALL_RECORD:
+        sh: |
+          if [ -n "$RECORD_INSTALL" ]; then
+            mkdir -p local/slim
+            echo '{{.PACKAGE}}' >> local/slim/exe.txt
+            echo '{{.INSTALL_TASK}}' >> local/slim/install.txt
+          fi
     run: when_changed
     log:
       error: Failed to install `{{.PACKAGE}}` with pipx
@@ -32,6 +49,7 @@ tasks:
     cmds:
       - task: pip
         vars:
+          INSTALL_TASK: '{{.TASK}}'
           PACKAGE: pytest
 
   pytest-cov:
@@ -39,6 +57,7 @@ tasks:
     cmds:
       - task: pip
         vars:
+          INSTALL_TASK: '{{.TASK}}'
           PACKAGE: pytest-cov
 
   requirements:
@@ -66,7 +85,10 @@ tasks:
       - poetry config virtualenvs.in-project true
       - |
         if [ -n "$PYPI_TOKEN" ]; then
-          poetry config pypi-token.pypi "$PYPI_TOKEN"
+          poetry config pypi-token.pypi "$PYPI_TOKEN" || EXIT_CODE=$?
+          if [ -n "$EXIT_CODE" ]; then
+            .config/log warn 'Failed to run `poetry config pypi-token.pypi`'
+          fi
         fi
       - |
         if [ -n "$GITLAB_CI" ]; then
@@ -74,14 +96,23 @@ tasks:
         fi
       - |
         if [ -n "$GITLAB_CI" ]; then
-          poetry config http-basic.gitlab gitlab-ci-token "${CI_JOB_TOKEN}"
+          poetry config http-basic.gitlab gitlab-ci-token "${CI_JOB_TOKEN}" || EXIT_CODE=$?
+          if [ -n "$EXIT_CODE" ]; then
+            .config/log warn 'Failed to run `poetry config http-basic.gitlab gitlab-ci-token`'
+          fi
         fi
-      - .config/log info "Installing/updating poetry install options -> {{.INSTALL_OPTIONS}}"
       - |
         if [ -n "$AUTO_UPDATE_PIP_PACKAGES" ]; then
+          .config/log info 'Updating Poetry dependencies{{if .INSTALL_OPTIONS}} with options `{{.INSTALL_OPTIONS}}`{{end}}'
           poetry update{{if .INSTALL_OPTIONS}} {{.INSTALL_OPTIONS}}{{end}}
         else
-          poetry install{{if .INSTALL_OPTIONS}} {{.INSTALL_OPTIONS}}{{end}}
+          .config/log info 'Installing Poetry dependencies{{if .INSTALL_OPTIONS}} with options `{{.INSTALL_OPTIONS}}`{{end}}'
+          poetry install{{if .INSTALL_OPTIONS}} {{.INSTALL_OPTIONS}}{{end}} || EXIT_CODE=$?
+          if [ -n "$EXIT_CODE" ]; then
+            .config/log warn 'Running `poetry install{{if .INSTALL_OPTIONS}} {{.INSTALL_OPTIONS}}{{end}}` failed.'
+            .config/log info 'Attempting to fix by running `poetry update{{if .INSTALL_OPTIONS}} {{.INSTALL_OPTIONS}}{{end}}`'
+            poetry update{{if .INSTALL_OPTIONS}} {{.INSTALL_OPTIONS}}{{end}}
+          fi
         fi
     sources:
       - pyproject.toml
