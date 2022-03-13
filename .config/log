@@ -13,7 +13,7 @@
 #   * `warn` - Logs a warning message
 #   * `md` - Log a stylized markdown string or file
 
-# @description Installs Stylog from GitHub releases
+# @description Installs Stylog (a logging CLI) from GitHub releases
 # @example installStylog
 installStylog() {
   true
@@ -40,6 +40,7 @@ logger() {
 }
 
 format() {
+  # shellcheck disable=SC2001,SC2016
   ANSI_STR="$(echo "$1" | sed 's/^\([^`]*\)`\([^`]*\)`/\1\\e[100;1m \2 \\e[0;39m/')"
   if [[ $ANSI_STR == *'`'*'`'* ]]; then
     ANSI_STR="$(format "$ANSI_STR")"
@@ -82,7 +83,7 @@ star() {
   if [ -n "$ENHANCED_LOGGING" ]; then
     logger star "$1"
   else
-    echo -e "\e[1;104m   STAR   \e[0m $(format "$1")\e[0;39m"
+    echo -e "\e[1;104m   LINK   \e[0m $(format "$1")\e[0;39m"
   fi
 }
 
