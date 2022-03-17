@@ -122,7 +122,7 @@
       "command": "bash start.sh && task docker:test:container-structure-test"
     },
     {
-      "label": "(docker:test:output): For each project in the `test-output/` folder, ensure slim and latest output match with default command",
+      "label": "(docker:test:output): For each folder matching `./test/output*`, ensure slim and latest output match with default command",
       "type": "shell",
       "command": "bash start.sh && task docker:test:output"
     },
@@ -642,7 +642,7 @@
       "command": "bash start.sh && task shell"
     },
     {
-      "label": "(start): Set up the project and refresh it with the latest changes",
+      "label": "(start): Start the project by installing / updating dependencies, repairing issues, and opening a tutorial",
       "type": "shell",
       "command": "bash start.sh && task start"
     },
@@ -657,12 +657,22 @@
       "command": "bash start.sh && task symlink:role"
     },
     {
+      "label": "(synchronize): Set up the project and refresh it with the latest changes",
+      "type": "shell",
+      "command": "bash start.sh && task synchronize"
+    },
+    {
+      "label": "(tag:deps): Inject a new command in the `Taskfile.yml` that includes all tasks matching a given tag as deps",
+      "type": "shell",
+      "command": "bash start.sh && task tag:deps"
+    },
+    {
       "label": "(test): Open an interactive dialog to select and run a Molecule test",
       "type": "shell",
       "command": "bash start.sh && task test"
     },
     {
-      "label": "(update): Update the repository",
+      "label": "(update): Fully update the repository",
       "type": "shell",
       "command": "bash start.sh && task update"
     },
