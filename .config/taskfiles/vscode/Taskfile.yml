@@ -20,6 +20,7 @@ tasks:
       VS Code show a popup with a link that leads to a list of plugins that the project recommends.
       This list is populated by converting the list of VS Code plugins installed by default by
       [Gas Station](https://gitlab.com/megabyte-labs/gas-station) into VS Code syntax.
+    run: once
     log:
       error: Failed to generate `{{.EXTENSIONS_FILE}}`
       start: Generating `{{.EXTENSIONS_FILE}}`
@@ -47,6 +48,7 @@ tasks:
 
       This task synchronizes the extensions from `.vscode/extensions.json` into the
       `.devcontainer/devcontainer.json` extensions field.
+    run: once
     log:
       error: Failed to inject `{{.EXTENSIONS_FILE}}` `recommendations` into `{{.DEVCONTAINER_CONFIG}}`
       start: Injecting `{{.EXTENSIONS_FILE}}` `recommendations` into `{{.DEVCONTAINER_CONFIG}}`
@@ -64,6 +66,7 @@ tasks:
     deps:
       - extensions
       - tasks
+    run: once
     cmds:
       - task: extensions:devcontainer
 

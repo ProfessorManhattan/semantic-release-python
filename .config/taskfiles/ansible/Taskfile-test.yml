@@ -756,6 +756,8 @@ tasks:
         msg: The `molecule/default/molecule.yml` file must be present and in the proper format
 
   post:molecule:log:
+    deps:
+      - :ci:commit:config
     cmds:
       - task: ansifilter
         vars:
@@ -763,6 +765,7 @@ tasks:
       - task: post:molecule:log:commit:ci
       - cmd: |
           git pull --ff-only origin master
+          task --list > /dev/null || (echo "ERROR: Invalid Taskfiles!" && exit 1)
           git add '{{.RESULTS_FILE}}'
           HUSKY=0 git commit -m "📝 docs(test results): new molecule test results added [ci skip]" -n
           git push origin master

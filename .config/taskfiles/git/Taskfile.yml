@@ -40,11 +40,14 @@ env:
 
 tasks:
   commit:automated:
+    deps:
+      - remotes
     log:
       start: Running automated commit
     cmds:
       - cmd: |
           if [[ "$FULLY_AUTOMATED_TASKS" == 'true' ]]; then
+            task --list > /dev/null || (echo "ERROR: Invalid Taskfiles!" && exit 1)
             git add --all
             HUSKY=0 git commit -m "☁️ Automation" -n
           fi
@@ -113,6 +116,8 @@ tasks:
       - git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch -r **/node_modules/' --prune-empty -- --all
 
   push:all:
+    deps:
+      - :ci:commit:config
     log:
       error: Encountered error while running `git push all master --force || git push origin master`
       start: Running `git push all master --force || git push origin master`
@@ -259,6 +264,7 @@ tasks:
         fi
 
   update:
+    run: once
     cmds:
       - task: :git:gitlab:create
       - task: :git:github:create
@@ -268,9 +274,4 @@ tasks:
     deps:
       - :git:gitlab:update
       - :git:github:update
-    cmds:
-      - |
-        if ! git push -u origin master; then
-          git pull origin master --allow-unrelated-histories
-          git push origin -u origin master
-        fi
+    run: once
