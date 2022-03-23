@@ -6,6 +6,14 @@ plugins:
     enabled: true
   eslint:
     enabled: true
+  jscpd:
+    enabled: true
+  proselint:
+    enabled: true
+  shellcheck:
+    enabled: true
+  semgrep:
+    enabled: true
   yamllint:
     enabled: true
 
@@ -41,4 +49,4 @@ exclude_patterns:
   - script/
   - test-output/
   - testdata/
-  - Tests/
+  - tests/
