@@ -9,6 +9,14 @@ tasks:
         vars:
           PACKAGE: autocannon
 
+  bitwarden:
+    run: once
+    cmds:
+      - task: install:npm
+        vars:
+          BIN_NAME: bw
+          PACKAGE: '@bitwarden/cli'
+
   bundle:
     cmds:
       - task: :install:modules:global
@@ -35,6 +43,8 @@ tasks:
           BIN_NAME: git-cz
           FORCE_INSTALL: true
           PACKAGE: commitizen
+    status:
+      - '[ -n "$CI" ]'
 
   commitlint:
     run: once
@@ -43,6 +53,8 @@ tasks:
         vars:
           BIN_NAME: commitlint
           PACKAGE: '@commitlint/cli'
+    status:
+      - '[ -n "$CI" ]'
 
   cspell:
     run: once
@@ -130,6 +142,8 @@ tasks:
       start: Installing NPM global library `{{.PACKAGE}}` which does not have a CLI
       success: '`{{.PACKAGE}}` has been installed globally'
     cmds:
+      - |
+        if [ -n "$CI" ]; then echo "*************** npm global --> {{.PACKAGE}}"; fi
       - '{{.NPM_PROGRAM}} install -g {{.PACKAGE}}'
     status:
       - '[[ "$PACKAGE_EXISTS" == "true" ]]'
@@ -142,9 +156,18 @@ tasks:
       success: Successfully installed `{{.NPM_PROGRAM}}`
     cmds:
       - task: :install:software:node
+      - |
+        if [ -n "$CI" ]; then echo "*************** npm global --> {{.PACKAGE}}"; fi
       - npm install -g {{.NPM_PROGRAM}}
     status:
       - type {{.NPM_PROGRAM}} > /dev/null
+
+  htmlhint:
+    run: once
+    cmds:
+      - task: install:npm
+        vars:
+          PACKAGE: htmlhint
 
   husky:
     run: once
@@ -154,8 +177,6 @@ tasks:
           PACKAGE: husky
 
   install:npm:
-    deps:
-      - global:package-manager
     vars:
       BIN: '{{if .BIN_NAME}}{{.BIN_NAME}}{{else}}{{.PACKAGE}}{{end}}'
     run: when_changed
@@ -164,6 +185,9 @@ tasks:
       start: Installing NPM package `{{.PACKAGE}}` globally
       success: Installed NPM package `{{.PACKAGE}}` globally
     cmds:
+      - task: global:package-manager
+      - |
+        if [ -n "$CI" ]; then echo "*************** npm global --> {{.PACKAGE}}"; fi
       - '{{.NPM_PROGRAM}} install -g {{.PACKAGE}}'
     status:
       - type {{.BIN}} > /dev/null
@@ -387,6 +411,13 @@ tasks:
           BIN_NAME: remark
           PACKAGE: remark-cli
 
+  secretlint:
+    run: once
+    cmds:
+      - task: install:npm
+        vars:
+          PACKAGE: secretlint
+
   semantic-release:
     run: once
     tags:
@@ -431,6 +462,13 @@ tasks:
       - task: install:npm
         vars:
           PACKAGE: standard-version
+
+  stylelint:
+    run: once
+    cmds:
+      - task: install:npm
+        vars:
+          PACKAGE: stylelint
 
   synp:
     run: once

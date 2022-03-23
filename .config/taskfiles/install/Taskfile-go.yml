@@ -13,9 +13,18 @@ tasks:
   bundle:
     deps:
       - bin
-      - goofys
+      - golangci-lint
       - goreleaser
+      - minio
       - nfpm
+      - ots
+      - pup
+
+  clean:
+    cmds:
+      - rm -rf "$GOPATH/pkg" "$GOPATH/src"
+    status:
+      - '[ -z "$GOPATH" ]'
 
   gitomatic:
     run: once
@@ -32,6 +41,14 @@ tasks:
         vars:
           BIN_NAME: goconvey
           PACKAGE: github.com/smartystreets/goconvey@latest
+
+  golangci-lint:
+    run: once
+    cmds:
+      - task: install:go
+        vars:
+          BIN_NAME: golangci-lint
+          PACKAGE: github.com/golangci/golangci-lint/cmd/golangci-lint@v1.45.0
 
   goofys:
     run: once
@@ -69,9 +86,19 @@ tasks:
       success: Successfully installed `{{.PACKAGE}}`
     cmds:
       - task: :install:software:go
+      - |
+        if [ -n "$CI" ]; then echo "*************** go --> {{.PACKAGE}}"; fi
       - go install {{.PACKAGE}}
     status:
       - type {{.BIN}} > /dev/null
+
+  minio:
+    run: once
+    cmds:
+      - task: install:go
+        vars:
+          BIN_NAME: mc
+          PACKAGE: github.com/minio/mc@latest
 
   misspell:
     run: once
@@ -99,4 +126,20 @@ tasks:
       - task: install:go
         vars:
           BIN_NAME: node-prune
-          PACKAGE: go install github.com/tj/node-prune@latest
+          PACKAGE: github.com/tj/node-prune@latest
+
+  ots:
+    run: once
+    cmds:
+      - task: install:go
+        vars:
+          BIN_NAME: ots
+          PACKAGE: github.com/sniptt-official/ots@latest
+
+  pup:
+    run: once
+    cmds:
+      - task: install:go
+        vars:
+          BIN_NAME: pup
+          PACKAGE: github.com/ericchiang/pup@latest

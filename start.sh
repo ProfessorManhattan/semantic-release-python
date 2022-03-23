@@ -135,7 +135,7 @@ function ensureRootPackageInstalled() {
 # @description If the user is running this script as root, then create a new user named
 # megabyte and restart the script with that user. This is required because Homebrew
 # can only be invoked by non-root users.
-if [ "$USER" == "root" ] && [ -z "$INIT_CWD" ] && type useradd &> /dev/null; then
+if [ -z "$NO_INSTALL_HOMEBREW" ] && [ "$USER" == "root" ] && [ -z "$INIT_CWD" ] && type useradd &> /dev/null; then
   # shellcheck disable=SC2016
   logger info 'Running as root - creating seperate user named `megabyte` to run script with'
   echo "megabyte ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
@@ -438,7 +438,7 @@ function ensureTaskfiles() {
       else
         mkdir -p .config/taskfiles
         curl -sSL https://gitlab.com/megabyte-labs/common/shared/-/archive/master/shared-master.tar.gz > shared-master.tar.gz
-        tar -xzvf shared-master.tar.gz
+        tar -xzvf shared-master.tar.gz > /dev/null
         rm shared-master.tar.gz
         rm -rf .config/taskfiles
         mv shared-master/common/.config/taskfiles .config/taskfiles

@@ -6,7 +6,6 @@ tasks:
     deps:
       - docker-pushrm
       - fusion
-      - sentry
 
   docker-pushrm:
     run: once
@@ -21,7 +20,7 @@ tasks:
       - mv "$(which docker-pushrm)" "$HOME/.docker/cli-plugins/docker-pushrm"
       - chmod +x "$HOME/.docker/cli-plugins/docker-pushrm"
     status:
-      - type -f "$HOME/.docker/cli-plugins/docker-pushrm"
+      - '[ -f "$HOME/.docker/cli-plugins/docker-pushrm" ]'
 
   fusion:
     run: once
@@ -54,6 +53,8 @@ tasks:
       - task: :install:go:bin
       - mkdir -p "$HOME/.config/bin"
       - jq '. | .default_path = "./.bin" | .bins = {}' <<< $(echo '{}') > "$HOME/.config/bin/config.json"
+      - |
+        if [ -n "$CI" ]; then echo "*************** GitHub --> {{.BIN}}"; fi
       - bin install -f {{.PACKAGE}} "$GOPATH/bin/{{.BIN}}"
     status:
       - type {{.BIN}} > /dev/null || [ -n "$NO_INSTALL_HOMEBREW" ]

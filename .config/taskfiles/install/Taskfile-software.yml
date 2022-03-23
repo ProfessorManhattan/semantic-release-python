@@ -59,6 +59,8 @@ tasks:
       success: Successfully installed `{{.CASK}}`
     cmds:
       - task: brew
+      - |
+        if [ -n "$CI" ]; then echo "*************** brew cask --> {{.CASK}}"; fi
       - brew install --cask {{.CASK}}
     status:
       - type {{.CASK}} &> /dev/null
@@ -175,7 +177,7 @@ tasks:
             echo "redhat"
           elif [ -f "/etc/arch-release" ]; then
             echo "archlinux"
-          else [ -f "/etc/alpine-release" ]; then
+          elif [ -f "/etc/alpine-release" ]; then
             echo "alpine"
           else
             echo "unknown"
@@ -450,6 +452,13 @@ tasks:
         vars:
           PACKAGE: dasel
 
+  deno:
+    run: once
+    cmds:
+      - task: install:software
+        vars:
+          PACKAGE: deno
+
   docker:
     run: once
     cmds:
@@ -514,12 +523,16 @@ tasks:
       - .config/log warn 'Software was installed that requires a terminal session reload'
       - .config/log info 'Please close and re-open the terminal. Then, re-run the same command to continue.'
       - exit 1
+    status:
+      - '[ -f /.dockerenv ]'
 
   exit:notice:restart:
     cmds:
       - .config/log warn 'Software was installed that requires a system reboot'
       - .config/log info 'Please reboot the system and re-run the same command after rebooting'
       - exit 1
+    status:
+      - '[ -f /.dockerenv ]'
 
   expect:
     run: once
@@ -571,6 +584,8 @@ tasks:
       - task: install:software
         vars:
           PACKAGE: gh
+    status:
+      - type gh &> /dev/null
 
   git:
     run: once
@@ -674,6 +689,8 @@ tasks:
       success: Successfully installed `{{.PACKAGE}}`
     cmds:
       - task: brew
+      - |
+        if [ -n "$CI" ]; then echo "*************** brew formulae --> {{.PACKAGE}}"; fi
       - brew install {{.PACKAGE}}
     status:
       - type {{.BIN}} &> /dev/null || [ -n "$NO_INSTALL_HOMEBREW" ]
@@ -766,7 +783,7 @@ tasks:
       - task: poetry:{{OS}}
       - task: exit:notice:reload
     status:
-      - type poetry > /dev/null
+      - type poetry > /dev/null || [ -n "$NO_INSTALL_POETRY" ]
 
   poetry:darwin:
     run: once
@@ -839,6 +856,7 @@ tasks:
     cmds:
       - task: install:software
         vars:
+          BIN_NAME: cargo
           PACKAGE: rust
 
   sentry:

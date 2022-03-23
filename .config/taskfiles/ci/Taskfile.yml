@@ -40,6 +40,8 @@ tasks:
           git checkout "$CI_COMMIT_REF_NAME"
           git pull origin "$CI_COMMIT_REF_NAME"
         fi
+    status:
+      - '[ -n "$NO_GIT_CREDS" ]'
 
   codeclimate:
     deps:
@@ -90,7 +92,7 @@ tasks:
           fi
         fi
     status:
-      - '[ -z "$CI" ]'
+      - '[ -z "$CI" ] || [ -n "$NO_GIT_CREDS" ]'
 
   commit:config:
     deps:
@@ -139,9 +141,10 @@ tasks:
     cmds:
       - >
         git submodule foreach 'git config user.email "$GITLAB_CI_EMAIL"; git config user.name "$GITLAB_CI_NAME";
-        git checkout -q master; git pull -q origin master --ff-only'
+        DEFAULT_BRANCH="$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')";
+        git checkout -q "$DEFAULT_BRANCH"; git pull -q origin "$DEFAULT_BRANCH" --ff-only'
     status:
-      - '[ -z "$CI" ]'
+      - '[ -z "$CI" ] || [ -n "$NO_GIT_CREDS" ]'
 
   synchronize:
     deps:
@@ -163,6 +166,8 @@ tasks:
         fi
       - task: synchronize:gitlab
       - git checkout master
+    status:
+      - '[ -n "$NO_GIT_CREDS" ]'
 
   synchronize:gitlab:
     cmds:
