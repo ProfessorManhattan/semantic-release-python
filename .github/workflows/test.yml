@@ -1,0 +1,43 @@
+---
+name: test
+
+'on':
+  push:
+    branches:
+      - master
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  minimum-node:
+    name: Node.js ${{ matrix.node }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # The first entry is the `engines.node` floor declared in package.json.
+        # `Object.hasOwn` only exists from 16.9.0 onwards, which is why the
+        # compatibility check runs before 16.9.0 as well.
+        node:
+          - 14.18.0
+          - 16.9.0
+          - 18.x
+          - 20.x
+          - 22.x
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install production dependencies
+        run: npm install --omit=dev --ignore-scripts --no-audit --no-fund
+
+      - name: Verify configuration compatibility
+        run: node test/compat/object-hasown.compat.js
